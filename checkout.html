@@ -237,7 +237,8 @@
 // ══════════════════════════════════════
 const SUPABASE_URL = 'https://scfynykgltftvredmvla.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjZnlueWtnbHRmdHZyZWRtdmxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE2MjIyNzAsImV4cCI6MjA4NzE5ODI3MH0.swEBhsm6s2bkoigELl16ia4TkY0vpMLuFn-QjShlzt0';
-const WHATSAPP_PHONE = '79962196487'; // رقمك
+const TELEGRAM_BOT_TOKEN = '8304330873:AAGV4PT4G0EunBk0m7Bd7XTmj-W70rr7vDE';
+const TELEGRAM_CHAT_ID = '2005350858';
 
 // ══════════════════════════════════════
 //  Cart
@@ -452,8 +453,8 @@ async function submitOrder() {
     const orderId = saved[0]?.id || Date.now();
     const orderShort = String(orderId).slice(-6).toUpperCase();
 
-    // إرسال واتساب
-    sendWhatsApp(name, phone, city, country, address, cart, total, selectedPayment, notes, orderShort);
+    // إرسال Telegram
+    await sendTelegram(name, phone, city, country, address, cart, total, selectedPayment, notes, orderShort);
 
     // مسح السلة
     clearCart();
@@ -471,9 +472,9 @@ async function submitOrder() {
 }
 
 // ══════════════════════════════════════
-//  WhatsApp Message
+//  Telegram Message
 // ══════════════════════════════════════
-function sendWhatsApp(name, phone, city, country, address, cart, total, payment, notes, orderNum) {
+async function sendTelegram(name, phone, city, country, address, cart, total, payment, notes, orderNum) {
   const paymentNames = { cod: 'الدفع عند الاستلام', transfer: 'تحويل بنكي', whatsapp: 'واتساب Pay' };
 
   const itemsList = cart.map(i =>
@@ -503,9 +504,19 @@ ${notes ? `📝 *ملاحظات:* ${notes}` : ''}
 ⏰ ${new Date().toLocaleString('ar-SA')}
   `.trim();
 
-  const encoded = encodeURIComponent(msg);
-  const waUrl = `https://wa.me/${WHATSAPP_PHONE}?text=${encoded}`;
-  window.open(waUrl, '_blank');
+  try {
+    await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: msg,
+        parse_mode: 'Markdown'
+      })
+    });
+  } catch(e) {
+    console.error('Telegram error:', e);
+  }
 }
 </script>
 </body>
