@@ -3,8 +3,8 @@
 //  غيّر القيم أدناه بعد إنشاء مشروعك على supabase.com
 // ═══════════════════════════════════════════════
 
-const SUPABASE_URL = 'https://YOUR_PROJECT.supabase.co';
-const SUPABASE_ANON_KEY = 'YOUR_ANON_KEY';
+const SUPABASE_URL = 'https://scfynykgltftvredmvla.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjZnlueWtnbHRmdHZyZWRtdmxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE2MjIyNzAsImV4cCI6MjA4NzE5ODI3MH0.swEBhsm6s2bkoigELl16ia4TkY0vpMLuFn-QjShlzt0';
 
 // إعدادات واتساب (Callmebot - مجاني)
 const WHATSAPP_PHONE = '966XXXXXXXXX'; // رقمك بدون +
