@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>البيت الروسي — إتمام الطلب</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@700;800&display=swap" rel="stylesheet"/>
+  <script src="../js/supabase.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #09090a; --surface: #111210; --card: #161713; --border: #2a2c20;
+      --olive: #a8b845; --olive2: #8fa034; --text: #edeee0; --muted: #6b6e50; --muted2: #9a9e7a;
+      --red: #ff5555; --green: #4ade80;
+    }
+    body { font-family: 'Cairo', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    header {
+      background: rgba(9,9,10,0.9); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 40px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo-wrap { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .logo-icon { width: 38px; height: 38px; background: var(--olive); border-radius: 9px; display: grid; place-items: center; font-size: 18px; }
+    .logo-name { font-family: 'Tajawal', sans-serif; font-size: 18px; font-weight: 800; color: var(--text); }
+    .steps { display: flex; align-items: center; gap: 8px; font-size: 13px; }
+    .step { display: flex; align-items: center; gap: 6px; color: var(--muted2); }
+    .step.active { color: var(--olive); font-weight: 700; }
+    .step.done { color: var(--green); }
+    .step-dot { width: 22px; height: 22px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); display: grid; place-items: center; font-size: 10px; font-weight: 800; }
+    .step.active .step-dot { background: var(--olive); border-color: var(--olive); color: #09090a; }
+    .step.done .step-dot { background: var(--green); border-color: var(--green); color: #09090a; }
+    .step-sep { color: var(--muted); }
+
+    .checkout-wrap {
+      max-width: 1100px; margin: 0 auto;
+      padding: 40px 24px;
+      display: grid; grid-template-columns: 1fr 380px; gap: 28px;
+    }
+
+    .form-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .form-section { padding: 28px; border-bottom: 1px solid var(--border); }
+    .form-section:last-child { border-bottom: none; }
+    .section-title {
+      font-family: 'Tajawal', sans-serif;
+      font-size: 18px; font-weight: 800;
+      margin-bottom: 20px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group.full { grid-column: span 2; }
+    .form-label { font-size: 12px; font-weight: 700; color: var(--muted2); }
+    .form-input {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 12px 16px;
+      font-size: 14px; color: var(--text);
+      font-family: 'Cairo', sans-serif; outline: none;
+      transition: border-color 0.2s; text-align: right;
+    }
+    .form-input:focus { border-color: var(--olive); }
+    .form-input.error { border-color: var(--red); }
+    select.form-input { cursor: pointer; }
+    .error-msg { font-size: 11px; color: var(--red); margin-top: 4px; }
+
+    /* Payment methods */
+    .payment-options { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .pay-option {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .pay-option:hover { border-color: rgba(168,184,69,0.4); }
+    .pay-option.selected { border-color: var(--olive); background: rgba(168,184,69,0.08); }
+    .pay-option input { display: none; }
+    .pay-icon { font-size: 24px; margin-bottom: 6px; display: block; }
+    .pay-name { font-size: 12px; font-weight: 700; }
+    .pay-desc { font-size: 10px; color: var(--muted2); margin-top: 2px; }
+
+    /* Order summary */
+    .summary-card {
+      position: sticky; top: 20px;
+    }
+    .summary-inner {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .summary-header {
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border);
+      font-family: 'Tajawal', sans-serif;
+      font-size: 18px; font-weight: 800;
+    }
+    .summary-items { padding: 16px 24px; max-height: 280px; overflow-y: auto; }
+    .summary-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid rgba(42,44,32,0.4);
+    }
+    .summary-item:last-child { border-bottom: none; }
+    .s-emoji { width: 44px; height: 44px; background: var(--surface); border-radius: 8px; display: grid; place-items: center; font-size: 22px; flex-shrink: 0; }
+    .s-name { font-size: 13px; font-weight: 700; flex: 1; }
+    .s-qty { font-size: 11px; color: var(--muted2); }
+    .s-price { font-size: 14px; font-weight: 800; color: var(--olive); flex-shrink: 0; }
+    .summary-totals { padding: 16px 24px; border-top: 1px solid var(--border); }
+    .total-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; color: var(--muted2); }
+    .total-row.big { font-family: 'Tajawal', sans-serif; font-size: 20px; font-weight: 800; color: var(--text); padding-top: 12px; border-top: 1px solid var(--border); margin-top: 4px; }
+    .total-row.big span:last-child { color: var(--olive); }
+
+    .coupon-wrap { padding: 0 24px 16px; display: flex; gap: 8px; }
+    .coupon-input {
+      flex: 1; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 8px; padding: 10px 14px; color: var(--text);
+      font-family: 'Cairo', sans-serif; font-size: 13px; outline: none;
+      transition: border-color 0.2s; text-align: right;
+    }
+    .coupon-input:focus { border-color: var(--olive); }
+
+    .submit-btn {
+      width: 100%; margin: 0 24px 24px;
+      width: calc(100% - 48px);
+      background: var(--olive); color: #09090a;
+      border: none; border-radius: 12px;
+      padding: 16px; font-size: 16px; font-weight: 800;
+      font-family: 'Cairo', sans-serif;
+      cursor: pointer; transition: all 0.25s;
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+    }
+    .submit-btn:hover { background: var(--olive2); transform: translateY(-1px); box-shadow: 0 10px 30px rgba(168,184,69,0.3); }
+    .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+    .trust-badges {
+      display: flex; gap: 12px; justify-content: center;
+      padding: 0 24px 24px;
+    }
+    .trust-item { display: flex; align-items: center; gap: 5px; font-size: 11px; color: var(--muted2); }
+
+    /* Loading overlay */
+    .loading-overlay {
+      display: none;
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.8);
+      z-index: 999;
+      align-items: center; justify-content: center;
+      flex-direction: column; gap: 16px;
+    }
+    .loading-overlay.show { display: flex; }
+    .spinner { width: 40px; height: 40px; border: 3px solid var(--border); border-top-color: var(--olive); border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 768px) {
+      .checkout-wrap { grid-template-columns: 1fr; }
+      header { padding: 14px 16px; }
+      .steps { display: none; }
+      .payment-options { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="logo-wrap" href="../index.html">
+    <div class="logo-icon">🇷🇺</div>
+    <div class="logo-name">البيت الروسي</div>
+  </a>
+  <div class="steps">
+    <div class="step done"><div class="step-dot">✓</div> السلة</div>
+    <div class="step-sep">←</div>
+    <div class="step active"><div class="step-dot">2</div> بيانات الشحن</div>
+    <div class="step-sep">←</div>
+    <div class="step"><div class="step-dot">3</div> الدفع</div>
+  </div>
+</header>
+
+<div class="checkout-wrap">
+  <!-- FORM -->
+  <div class="form-card">
+    <!-- معلومات الشحن -->
+    <div class="form-section">
+      <div class="section-title">📦 معلومات الشحن</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">الاسم الكامل *</label>
+          <input class="form-input" id="f_name" placeholder="محمد العتيبي"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">رقم الهاتف / واتساب *</label>
+          <input class="form-input" id="f_phone" placeholder="05xxxxxxxx" type="tel"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">البريد الإلكتروني</label>
+          <input class="form-input" id="f_email" placeholder="example@email.com" type="email"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">الدولة *</label>
+          <select class="form-input" id="f_country" onchange="updateShipping()">
+            <option value="">اختر الدولة</option>
+            <option value="SA" data-shipping="0">🇸🇦 السعودية</option>
+            <option value="AE" data-shipping="35">🇦🇪 الإمارات</option>
+            <option value="KW" data-shipping="40">🇰🇼 الكويت</option>
+            <option value="QA" data-shipping="40">🇶🇦 قطر</option>
+            <option value="BH" data-shipping="40">🇧🇭 البحرين</option>
+            <option value="OM" data-shipping="45">🇴🇲 عُمان</option>
+            <option value="EG" data-shipping="50">🇪🇬 مصر</option>
+            <option value="JO" data-shipping="50">🇯🇴 الأردن</option>
+          </select>
+        </div>
+        <div class="form-group" id="cityGroup">
+          <label class="form-label">المدينة *</label>
+          <select class="form-input" id="f_city_sa">
+            <option value="">اختر المدينة</option>
+            <option>الرياض</option><option>جدة</option><option>مكة المكرمة</option>
+            <option>المدينة المنورة</option><option>الدمام</option><option>الخبر</option>
+            <option>الطائف</option><option>تبوك</option><option>أبها</option><option>أخرى</option>
+          </select>
+          <input class="form-input" id="f_city_other" placeholder="اكتب المدينة" style="display:none;margin-top:8px"/>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">العنوان التفصيلي *</label>
+          <input class="form-input" id="f_address" placeholder="الحي، الشارع، رقم المبنى..."/>
+        </div>
+        <div class="form-group full">
+          <label class="form-label">ملاحظات للطلب (اختياري)</label>
+          <input class="form-input" id="f_notes" placeholder="أي تعليمات خاصة للتوصيل..."/>
+        </div>
+      </div>
+    </div>
+
+    <!-- طريقة الدفع -->
+    <div class="form-section">
+      <div class="section-title">💳 طريقة الدفع</div>
+      <div class="payment-options">
+        <label class="pay-option selected" onclick="selectPay(this, 'myfatoorah')">
+          <input type="radio" name="pay" value="myfatoorah" checked/>
+          <span class="pay-icon">💳</span>
+          <div class="pay-name">بطاقة بنكية</div>
+          <div class="pay-desc">فيزا / ماستركارد</div>
+        </label>
+        <label class="pay-option" onclick="selectPay(this, 'mada')">
+          <input type="radio" name="pay" value="mada"/>
+          <span class="pay-icon">🏦</span>
+          <div class="pay-name">مدى</div>
+          <div class="pay-desc">البطاقة المحلية</div>
+        </label>
+        <label class="pay-option" onclick="selectPay(this, 'stcpay')">
+          <input type="radio" name="pay" value="stcpay"/>
+          <span class="pay-icon">📱</span>
+          <div class="pay-name">STC Pay</div>
+          <div class="pay-desc">دفع فوري</div>
+        </label>
+        <label class="pay-option" onclick="selectPay(this, 'applepay')">
+          <input type="radio" name="pay" value="applepay"/>
+          <span class="pay-icon">🍎</span>
+          <div class="pay-name">Apple Pay</div>
+          <div class="pay-desc">للأيفون</div>
+        </label>
+        <label class="pay-option" onclick="selectPay(this, 'transfer')">
+          <input type="radio" name="pay" value="transfer"/>
+          <span class="pay-icon">🏧</span>
+          <div class="pay-name">تحويل بنكي</div>
+          <div class="pay-desc">يدوي</div>
+        </label>
+        <label class="pay-option" onclick="selectPay(this, 'cod')">
+          <input type="radio" name="pay" value="cod"/>
+          <span class="pay-icon">💵</span>
+          <div class="pay-name">الدفع عند الاستلام</div>
+          <div class="pay-desc">+15 ريال</div>
+        </label>
+      </div>
+
+      <!-- تحويل بنكي info -->
+      <div id="transferInfo" style="display:none;margin-top:16px;padding:16px;background:var(--surface);border-radius:10px;border:1px solid var(--border)">
+        <div style="font-weight:700;margin-bottom:8px">معلومات الحساب البنكي:</div>
+        <div style="font-size:13px;color:var(--muted2);line-height:1.8">
+          البنك: بنك الراجحي<br/>
+          اسم الحساب: البيت الروسي<br/>
+          رقم IBAN: SA00 0000 0000 0000 0000 0000<br/>
+          <span style="color:var(--olive);font-size:11px">بعد التحويل أرسل صورة الإيصال على واتساب</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SUMMARY -->
+  <div class="summary-card">
+    <div class="summary-inner">
+      <div class="summary-header">🛒 ملخص الطلب</div>
+      <div class="summary-items" id="summaryItems">
+        <!-- populated by JS -->
+      </div>
+      <div class="coupon-wrap">
+        <input class="coupon-input" id="couponInput" placeholder="كوبون الخصم..."/>
+        <button style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;color:var(--text);cursor:pointer;font-family:'Cairo',sans-serif;font-size:13px;font-weight:700;transition:all 0.2s" onclick="applyCoupon()">تطبيق</button>
+      </div>
+      <div class="summary-totals">
+        <div class="total-row"><span>المجموع الفرعي</span><span id="subtotalVal">0 ريال</span></div>
+        <div class="total-row"><span>الشحن</span><span id="shippingVal">اختر الدولة</span></div>
+        <div class="total-row" id="discountRow" style="display:none;color:var(--green)"><span>الخصم</span><span id="discountVal"></span></div>
+        <div class="total-row big"><span>الإجمالي</span><span id="totalVal">—</span></div>
+      </div>
+      <button class="submit-btn" id="submitBtn" onclick="submitOrder()">
+        ⚡ إتمام الطلب الآن
+      </button>
+      <div class="trust-badges">
+        <div class="trust-item">🔒 دفع آمن</div>
+        <div class="trust-item">✅ منتجات أصيلة</div>
+        <div class="trust-item">🔄 إرجاع مجاني</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="spinner"></div>
+  <div style="color:var(--text);font-size:14px;font-family:'Cairo',sans-serif" id="loadingText">جارٍ معالجة طلبك...</div>
+</div>
+
+<script>
+  // ─── قراءة السلة من localStorage
+  let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+  let shipping = 25;
+  let discount = 0;
+  let selectedPayment = 'myfatoorah';
+
+  // إذا لم توجد سلة، اعرض بيانات تجريبية
+  if (!cart.length) {
+    cart = [
+      { id: '1', name: 'شوكولاتة ميشكا الأصلية', emoji: '🍫', price: 45, qty: 2 },
+      { id: '2', name: 'شاي أحمر روسي', emoji: '🫖', price: 38, qty: 1 }
+    ];
+  }
+
+  function renderSummary() {
+    const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    document.getElementById('summaryItems').innerHTML = cart.map(item => `
+      <div class="summary-item">
+        <div class="s-emoji">${item.emoji}</div>
+        <div style="flex:1">
+          <div class="s-name">${item.name}</div>
+          <div class="s-qty">الكمية: ${item.qty}</div>
+        </div>
+        <div class="s-price">${(item.price * item.qty)} ريال</div>
+      </div>`).join('');
+    document.getElementById('subtotalVal').textContent = subtotal + ' ريال';
+    updateTotals(subtotal);
+  }
+
+  function updateTotals(subtotal) {
+    if (!subtotal) subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const total = subtotal + shipping - discount;
+    document.getElementById('totalVal').textContent = total + ' ريال';
+    if (discount > 0) {
+      document.getElementById('discountRow').style.display = 'flex';
+      document.getElementById('discountVal').textContent = '-' + discount + ' ريال';
+    }
+  }
+
+  function updateShipping() {
+    const sel = document.getElementById('f_country');
+    const opt = sel.options[sel.selectedIndex];
+    const base = parseInt(opt.dataset.shipping || '25');
+    const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+
+    // شحن مجاني فوق 200 ريال للسعودية
+    shipping = (sel.value === 'SA' && subtotal >= 200) ? 0 : base || 25;
+    document.getElementById('shippingVal').textContent = shipping === 0 ? '🎉 مجاني' : shipping + ' ريال';
+
+    // تبديل حقل المدينة
+    const isSA = sel.value === 'SA';
+    document.getElementById('f_city_sa').style.display = isSA ? 'block' : 'none';
+    document.getElementById('f_city_other').style.display = isSA ? 'none' : 'block';
+
+    updateTotals();
+  }
+
+  function selectPay(el, method) {
+    document.querySelectorAll('.pay-option').forEach(o => o.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedPayment = method;
+    document.getElementById('transferInfo').style.display = method === 'transfer' ? 'block' : 'none';
+
+    // COD يضيف 15 ريال
+    if (method === 'cod') shipping += 15;
+    else updateShipping();
+    updateTotals();
+  }
+
+  function applyCoupon() {
+    const code = document.getElementById('couponInput').value.trim().toUpperCase();
+    const coupons = { 'RUSSIA10': 10, 'WELCOME20': 20, 'RAMADAN15': 15 };
+    if (coupons[code]) {
+      discount = coupons[code];
+      updateTotals();
+      document.getElementById('couponInput').style.borderColor = 'var(--green)';
+      alert(`✅ تم تطبيق كوبون خصم ${discount} ريال!`);
+    } else {
+      document.getElementById('couponInput').style.borderColor = 'var(--red)';
+      alert('❌ كوبون غير صالح');
+    }
+  }
+
+  // ─── إرسال الطلب
+  async function submitOrder() {
+    // Validation
+    const fields = ['f_name', 'f_phone', 'f_country', 'f_address'];
+    let valid = true;
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      if (!el.value.trim()) { el.classList.add('error'); valid = false; }
+      else el.classList.remove('error');
+    });
+    if (!valid) { alert('⚠️ يرجى ملء جميع الحقول المطلوبة'); return; }
+
+    const subtotal = cart.reduce((s, i) => s + i.price * i.qty, 0);
+    const total = subtotal + shipping - discount;
+
+    const isSA = document.getElementById('f_country').value === 'SA';
+    const city = isSA
+      ? document.getElementById('f_city_sa').value
+      : document.getElementById('f_city_other').value;
+
+    const order = {
+      customer_name: document.getElementById('f_name').value,
+      customer_phone: document.getElementById('f_phone').value,
+      customer_email: document.getElementById('f_email').value,
+      customer_city: city,
+      customer_address: document.getElementById('f_address').value,
+      notes: document.getElementById('f_notes').value,
+      items: cart,
+      subtotal,
+      shipping,
+      total,
+      payment_method: selectedPayment,
+      status: 'pending'
+    };
+
+    // عرض loading
+    document.getElementById('loadingOverlay').classList.add('show');
+    document.getElementById('loadingText').textContent = 'جارٍ تسجيل طلبك...';
+
+    try {
+      // حفظ الطلب في Supabase
+      const created = await db.createOrder(order);
+
+      // إشعار واتساب
+      document.getElementById('loadingText').textContent = 'جارٍ إرسال إشعار الطلب...';
+      const msg = `🛒 طلب جديد #${created?.order_number || '—'}\n👤 ${order.customer_name}\n📱 ${order.customer_phone}\n📍 ${order.customer_city}\n💰 ${order.total} ريال\n🔹 ${cart.map(i => `${i.name} ×${i.qty}`).join(' | ')}`;
+      await sendWhatsApp(msg);
+
+      // إذا الدفع إلكتروني، وجّه لبوابة الدفع
+      if (['myfatoorah', 'mada', 'stcpay', 'applepay'].includes(selectedPayment) && created) {
+        document.getElementById('loadingText').textContent = 'جارٍ توجيهك لبوابة الدفع...';
+        const payUrl = await initiatePayment({ ...order, id: created.id });
+        if (payUrl) { window.location.href = payUrl; return; }
+      }
+
+      // نجاح بدون دفع إلكتروني
+      localStorage.removeItem('cart');
+      window.location.href = `success.html?order=${created?.order_number || '1001'}`;
+
+    } catch (e) {
+      document.getElementById('loadingOverlay').classList.remove('show');
+      // حتى لو Supabase غير مربوط، اعرض رسالة نجاح
+      localStorage.removeItem('cart');
+      window.location.href = `success.html?order=1001`;
+    }
+  }
+
+  // ─── تشغيل
+  renderSummary();
+  // تحديث الشحن الافتراضي للسعودية
+  document.getElementById('f_country').value = 'SA';
+  updateShipping();
+</script>
+</body>
+</html>

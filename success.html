@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>البيت الروسي — تم الطلب بنجاح</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Tajawal:wght@700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root { --bg:#09090a; --card:#161713; --border:#2a2c20; --olive:#a8b845; --text:#edeee0; --muted2:#9a9e7a; --green:#4ade80; }
+    body { font-family: 'Cairo', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+
+    .success-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 24px; padding: 60px 48px;
+      text-align: center; max-width: 520px; width: 100%;
+      position: relative; overflow: hidden;
+    }
+    .success-card::before {
+      content: '';
+      position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 70%; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--olive), transparent);
+    }
+
+    .check-circle {
+      width: 80px; height: 80px;
+      background: rgba(74,222,128,0.1);
+      border: 2px solid var(--green);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 36px; margin: 0 auto 24px;
+      animation: popIn 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+    }
+    @keyframes popIn { from{transform:scale(0);opacity:0} to{transform:scale(1);opacity:1} }
+
+    h1 { font-family: 'Tajawal', sans-serif; font-size: 32px; font-weight: 800; margin-bottom: 8px; }
+    .order-num {
+      display: inline-block;
+      background: rgba(168,184,69,0.1);
+      border: 1px solid rgba(168,184,69,0.3);
+      color: var(--olive);
+      font-size: 14px; font-weight: 700;
+      padding: 6px 20px; border-radius: 100px;
+      margin: 12px 0 20px;
+    }
+    p { font-size: 15px; color: var(--muted2); line-height: 1.7; margin-bottom: 32px; }
+
+    .steps-list { text-align: right; margin-bottom: 32px; }
+    .step-item { display: flex; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .step-item:last-child { border-bottom: none; }
+    .step-dot { width: 24px; height: 24px; background: rgba(168,184,69,0.1); border: 1px solid rgba(168,184,69,0.3); border-radius: 50%; display: grid; place-items: center; font-size: 12px; flex-shrink: 0; margin-top: 1px; }
+    .step-text { font-size: 13px; color: var(--muted2); }
+    .step-text strong { color: var(--text); display: block; margin-bottom: 2px; }
+
+    .actions { display: flex; gap: 12px; }
+    .btn-olive { flex: 1; background: var(--olive); color: #09090a; border: none; border-radius: 10px; padding: 14px; font-size: 14px; font-weight: 800; font-family: 'Cairo', sans-serif; cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; }
+    .btn-olive:hover { background: #8fa034; }
+    .btn-ghost { flex: 1; background: transparent; color: var(--text); border: 1px solid var(--border); border-radius: 10px; padding: 13px; font-size: 14px; font-weight: 700; font-family: 'Cairo', sans-serif; cursor: pointer; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px; transition: all 0.2s; }
+    .btn-ghost:hover { border-color: var(--olive); color: var(--olive); }
+  </style>
+</head>
+<body>
+  <div class="success-card">
+    <div class="check-circle">✅</div>
+    <h1>تم استلام طلبك! 🎉</h1>
+    <div class="order-num" id="orderNum">رقم الطلب: #1001</div>
+    <p>شكراً لك! تم تسجيل طلبك بنجاح وسيتم التواصل معك على واتساب خلال ساعات لتأكيد الطلب.</p>
+
+    <div class="steps-list">
+      <div class="step-item">
+        <div class="step-dot">1</div>
+        <div class="step-text">
+          <strong>تأكيد الطلب</strong>
+          سيتصل بك فريقنا خلال 2-4 ساعات
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-dot">2</div>
+        <div class="step-text">
+          <strong>التجهيز والشحن</strong>
+          يتم تجهيز طلبك وإرساله لشركة الشحن
+        </div>
+      </div>
+      <div class="step-item">
+        <div class="step-dot">3</div>
+        <div class="step-text">
+          <strong>التوصيل</strong>
+          يصلك الطلب خلال 3-5 أيام عمل
+        </div>
+      </div>
+    </div>
+
+    <div class="actions">
+      <a class="btn-olive" href="index.html">← متابعة التسوق</a>
+      <a class="btn-ghost" id="waBtn" href="#" target="_blank">💬 تواصل واتساب</a>
+    </div>
+  </div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const orderNum = params.get('order');
+    if (orderNum) document.getElementById('orderNum').textContent = `رقم الطلب: #${orderNum}`;
+    const cfg = JSON.parse(localStorage.getItem('albait_config') || '{}');
+    if (cfg.wa) document.getElementById('waBtn').href = `https://wa.me/${cfg.wa}?text=${encodeURIComponent(`مرحباً، طلبي رقم #${orderNum || '1001'}`)}`;
+  </script>
+</body>
+</html>
