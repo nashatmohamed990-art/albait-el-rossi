@@ -963,7 +963,7 @@ let currentCategory = null;
 
 async function loadProducts() {
   try {
-    const data = await supabaseQuery('products', '?order=created_at.desc&is_active=eq.true&limit=12');
+    const data = await supabaseQuery('products', '?select=id,name,price,old_price,emoji,category,badge,origin,brand,image_url&is_active=eq.true&order=created_at.desc');
     allProducts = data || [];
     document.getElementById('productsCount').textContent = '+' + allProducts.length;
     renderProducts(allProducts);
