@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>تسجيل الدخول | البيت الروسي</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #09090a; --surface: #111210; --card: #161713;
+      --border: #2a2c20; --green: #a8b845; --green2: #8fa034;
+      --white: #f5f5ee; --muted: #6b6e50; --muted2: #9a9e7a; --text: #edeee0; --red: #ff4d4d;
+    }
+    body { font-family: 'Cairo', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; display: grid; place-items: center; padding: 20px; }
+    body::before { content: ''; position: fixed; inset: 0; background-image: radial-gradient(ellipse 600px 400px at 80% 10%, rgba(168,184,69,0.07) 0%, transparent 70%); pointer-events: none; z-index: 0; }
+    .auth-box { background: var(--card); border: 1px solid var(--border); border-radius: 24px; padding: 48px 40px; width: 100%; max-width: 440px; position: relative; z-index: 5; }
+    .logo { display: flex; align-items: center; gap: 12px; text-decoration: none; margin-bottom: 32px; justify-content: center; }
+    .logo-icon { width: 48px; height: 48px; background: var(--green); border-radius: 12px; display: grid; place-items: center; font-size: 24px; }
+    .logo-name { font-family: 'Tajawal', sans-serif; font-size: 22px; font-weight: 800; color: var(--white); }
+    .logo-sub { font-size: 10px; color: var(--green); letter-spacing: 1px; }
+    .tabs { display: grid; grid-template-columns: 1fr 1fr; background: var(--surface); border-radius: 12px; padding: 4px; margin-bottom: 32px; }
+    .tab { padding: 10px; text-align: center; font-size: 14px; font-weight: 700; border-radius: 10px; cursor: pointer; transition: all 0.2s; color: var(--muted2); }
+    .tab.active { background: var(--green); color: #080b08; }
+    .form-title { font-family: 'Tajawal', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 6px; text-align: center; }
+    .form-sub { font-size: 13px; color: var(--muted2); text-align: center; margin-bottom: 28px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
+    label { font-size: 13px; font-weight: 700; color: var(--muted2); }
+    input { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 13px 16px; color: var(--text); font-family: 'Cairo', sans-serif; font-size: 14px; outline: none; transition: border-color 0.2s; text-align: right; width: 100%; }
+    input:focus { border-color: var(--green); }
+    input::placeholder { color: var(--muted); }
+    .submit-btn { width: 100%; background: var(--green); color: #080b08; border: none; border-radius: 12px; padding: 15px; font-size: 15px; font-weight: 900; font-family: 'Cairo', sans-serif; cursor: pointer; transition: all 0.25s; margin-top: 8px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .submit-btn:hover { background: var(--green2); transform: translateY(-1px); }
+    .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .error-msg { background: rgba(255,77,77,0.1); border: 1px solid rgba(255,77,77,0.3); border-radius: 10px; padding: 12px 16px; font-size: 13px; color: var(--red); margin-bottom: 16px; display: none; text-align: center; }
+    .error-msg.show { display: block; }
+    .success-msg { background: rgba(168,184,69,0.1); border: 1px solid rgba(168,184,69,0.3); border-radius: 10px; padding: 12px 16px; font-size: 13px; color: var(--green); margin-bottom: 16px; display: none; text-align: center; }
+    .success-msg.show { display: block; }
+    .back-link { display: block; text-align: center; margin-top: 20px; font-size: 13px; color: var(--muted2); text-decoration: none; transition: color 0.2s; }
+    .back-link:hover { color: var(--green); }
+    .spinner { width: 18px; height: 18px; border: 3px solid rgba(8,11,8,0.3); border-top-color: #080b08; border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+<div class="auth-box">
+  <a class="logo" href="index.html">
+    <div class="logo-icon">&#x1F1F7;&#x1F1FA;</div>
+    <div><div class="logo-name">البيت الروسي</div><div class="logo-sub">AL-BAIT AL-RUSSI</div></div>
+  </a>
+  <div class="tabs">
+    <div class="tab active" onclick="switchTab('login')">تسجيل الدخول</div>
+    <div class="tab" onclick="switchTab('register')">حساب جديد</div>
+  </div>
+  <div class="error-msg" id="errorMsg"></div>
+  <div class="success-msg" id="successMsg"></div>
+  <div id="loginForm">
+    <div class="form-title">أهلاً بعودتك</div>
+    <div class="form-sub">سجل دخولك لمتابعة طلباتك</div>
+    <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="loginEmail" placeholder="example@email.com"/></div>
+    <div class="form-group"><label>كلمة السر</label><input type="password" id="loginPass" placeholder="••••••••" onkeydown="if(event.key==='Enter') login()"/></div>
+    <button class="submit-btn" id="loginBtn" onclick="login()">تسجيل الدخول</button>
+  </div>
+  <div id="registerForm" style="display:none">
+    <div class="form-title">إنشاء حساب جديد</div>
+    <div class="form-sub">سجل عشان تتابع طلباتك بسهولة</div>
+    <div class="form-group"><label>الاسم الكامل</label><input type="text" id="regName" placeholder="محمد أحمد"/></div>
+    <div class="form-group"><label>البريد الإلكتروني</label><input type="email" id="regEmail" placeholder="example@email.com"/></div>
+    <div class="form-group"><label>كلمة السر</label><input type="password" id="regPass" placeholder="6 أحرف على الأقل" onkeydown="if(event.key==='Enter') register()"/></div>
+    <button class="submit-btn" id="registerBtn" onclick="register()">إنشاء الحساب</button>
+  </div>
+  <a class="back-link" href="index.html">← العودة للمتجر</a>
+</div>
+<script>
+const SUPABASE_URL = 'https://scfynykgltftvredmvla.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjZnlueWtnbHRmdHZyZWRtdmxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE2MjIyNzAsImV4cCI6MjA4NzE5ODI3MH0.swEBhsm6s2bkoigELl16ia4TkY0vpMLuFn-QjShlzt0';
+
+if (localStorage.getItem('sb_session')) window.location.href = 'index.html';
+
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', (i===0&&tab==='login')||(i===1&&tab==='register')));
+  document.getElementById('loginForm').style.display = tab==='login' ? 'block' : 'none';
+  document.getElementById('registerForm').style.display = tab==='register' ? 'block' : 'none';
+  hideMessages();
+}
+function showError(msg) { document.getElementById('errorMsg').textContent=msg; document.getElementById('errorMsg').classList.add('show'); document.getElementById('successMsg').classList.remove('show'); }
+function showSuccess(msg) { document.getElementById('successMsg').textContent=msg; document.getElementById('successMsg').classList.add('show'); document.getElementById('errorMsg').classList.remove('show'); }
+function hideMessages() { document.getElementById('errorMsg').classList.remove('show'); document.getElementById('successMsg').classList.remove('show'); }
+
+async function login() {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass = document.getElementById('loginPass').value;
+  if (!email || !pass) return showError('من فضلك أدخل الإيميل وكلمة السر');
+  const btn = document.getElementById('loginBtn');
+  btn.disabled = true; btn.innerHTML = '<div class="spinner"></div> جاري الدخول...';
+  try {
+    const res = await fetch(SUPABASE_URL+'/auth/v1/token?grant_type=password', {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password: pass })
+    });
+    const data = await res.json();
+    if (data.error || data.error_description) { showError('الإيميل أو كلمة السر غلط'); btn.disabled=false; btn.innerHTML='تسجيل الدخول'; return; }
+    localStorage.setItem('sb_session', JSON.stringify({ access_token: data.access_token, user: data.user }));
+    showSuccess('تم الدخول بنجاح! جاري التحويل...');
+    setTimeout(() => window.location.href='index.html', 1000);
+  } catch(e) { showError('حدث خطأ، حاول مرة أخرى'); btn.disabled=false; btn.innerHTML='تسجيل الدخول'; }
+}
+
+async function register() {
+  const name = document.getElementById('regName').value.trim();
+  const email = document.getElementById('regEmail').value.trim();
+  const pass = document.getElementById('regPass').value;
+  if (!name||!email||!pass) return showError('من فضلك أكمل كل البيانات');
+  if (pass.length < 6) return showError('كلمة السر لازم تكون 6 أحرف على الأقل');
+  const btn = document.getElementById('registerBtn');
+  btn.disabled=true; btn.innerHTML='<div class="spinner"></div> جاري التسجيل...';
+  try {
+    const res = await fetch(SUPABASE_URL+'/auth/v1/signup', {
+      method: 'POST',
+      headers: { 'apikey': SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, password: pass, data: { full_name: name } })
+    });
+    const data = await res.json();
+    if (data.error||data.error_description) { showError(data.error_description||'حدث خطأ في التسجيل'); btn.disabled=false; btn.innerHTML='إنشاء الحساب'; return; }
+    if (data.access_token) {
+      localStorage.setItem('sb_session', JSON.stringify({ access_token: data.access_token, user: data.user }));
+      showSuccess('تم إنشاء حسابك! جاري التحويل...');
+      setTimeout(() => window.location.href='index.html', 1000);
+    } else {
+      showSuccess('تم التسجيل! تحقق من إيميلك لتأكيد الحساب.');
+      btn.disabled=false; btn.innerHTML='إنشاء الحساب';
+    }
+  } catch(e) { showError('حدث خطأ، حاول مرة أخرى'); btn.disabled=false; btn.innerHTML='إنشاء الحساب'; }
+}
+</script>
+</body>
+</html>
