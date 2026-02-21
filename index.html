@@ -689,7 +689,7 @@
         🛒
         <span class="badge" id="cartCount">0</span>
       </button>
-      <button class="btn-login">تسجيل الدخول</button>
+      <button class="btn-login" id="authBtn" onclick="handleAuth()">تسجيل الدخول</button>
     </div>
   </div>
 </header>
@@ -900,7 +900,7 @@
       <div class="footer-col-title">تواصل معنا</div>
       <ul class="footer-links-list">
         <li><a href="#">📞 +966 50 000 0000</a></li>
-        <li><a href="#">✉️ info@albaitrussi.com</a></li>
+        <li><a href="#">✉️ <span class="__cf_email__" data-cfemail="ff96919990bf9e939d9e968b8d8a8c8c96d19c9092">[email&#160;protected]</span></a></li>
         <li><a href="#">💬 واتساب متاح 24/7</a></li>
         <li><a href="#">🕐 السبت - الخميس 9ص - 11م</a></li>
       </ul>
@@ -938,7 +938,7 @@
 <!-- TOAST -->
 <div class="toast" id="toast">✅ <span id="toastMsg">تمت الإضافة للسلة</span></div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 // ══════════════════════════════════════
 //  Supabase Config
 // ══════════════════════════════════════
@@ -1137,15 +1137,8 @@ document.querySelectorAll('.cat-card, .testi-card, .hero-side-card, .feat-item')
 
 // Admin shortcut
 document.addEventListener('keydown', e => {
-  if (e.ctrlKey && e.shiftKey && e.key === 'A') window.open('admin/index.html', '_blank');
+  if (e.ctrlKey && e.shiftKey && e.key === 'A') window.open('admin.html', '_blank');
 });
 
 // ══════════════════════════════════════
-//  Init
-// ══════════════════════════════════════
-syncCartCount();
-renderCartSidebar();
-loadProducts();
-</script>
-</body>
-</html>
+//  I
