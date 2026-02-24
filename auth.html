@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8"/>
@@ -75,64 +76,65 @@
 const SUPABASE_URL = 'https://scfynykgltftvredmvla.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjZnlueWtnbHRmdHZyZWRtdmxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE2MjIyNzAsImV4cCI6MjA4NzE5ODI3MH0.swEBhsm6s2bkoigELl16ia4TkY0vpMLuFn-QjShlzt0';
 
-if (localStorage.getItem('sb_session')) window.location.href = 'index.html';
+if (localStorage.getItem(‘sb_session’)) window.location.href = ‘index.html’;
 
 function switchTab(tab) {
-  document.querySelectorAll('.tab').forEach((t, i) => t.classList.toggle('active', (i===0&&tab==='login')||(i===1&&tab==='register')));
-  document.getElementById('loginForm').style.display = tab==='login' ? 'block' : 'none';
-  document.getElementById('registerForm').style.display = tab==='register' ? 'block' : 'none';
-  hideMessages();
+document.querySelectorAll(’.tab’).forEach((t, i) => t.classList.toggle(‘active’, (i===0&&tab===‘login’)||(i===1&&tab===‘register’)));
+document.getElementById(‘loginForm’).style.display = tab===‘login’ ? ‘block’ : ‘none’;
+document.getElementById(‘registerForm’).style.display = tab===‘register’ ? ‘block’ : ‘none’;
+hideMessages();
 }
-function showError(msg) { document.getElementById('errorMsg').textContent=msg; document.getElementById('errorMsg').classList.add('show'); document.getElementById('successMsg').classList.remove('show'); }
-function showSuccess(msg) { document.getElementById('successMsg').textContent=msg; document.getElementById('successMsg').classList.add('show'); document.getElementById('errorMsg').classList.remove('show'); }
-function hideMessages() { document.getElementById('errorMsg').classList.remove('show'); document.getElementById('successMsg').classList.remove('show'); }
+function showError(msg) { document.getElementById(‘errorMsg’).textContent=msg; document.getElementById(‘errorMsg’).classList.add(‘show’); document.getElementById(‘successMsg’).classList.remove(‘show’); }
+function showSuccess(msg) { document.getElementById(‘successMsg’).textContent=msg; document.getElementById(‘successMsg’).classList.add(‘show’); document.getElementById(‘errorMsg’).classList.remove(‘show’); }
+function hideMessages() { document.getElementById(‘errorMsg’).classList.remove(‘show’); document.getElementById(‘successMsg’).classList.remove(‘show’); }
 
 async function login() {
-  const email = document.getElementById('loginEmail').value.trim();
-  const pass = document.getElementById('loginPass').value;
-  if (!email || !pass) return showError('من فضلك أدخل الإيميل وكلمة السر');
-  const btn = document.getElementById('loginBtn');
-  btn.disabled = true; btn.innerHTML = '<div class="spinner"></div> جاري الدخول...';
-  try {
-    const res = await fetch(SUPABASE_URL+'/auth/v1/token?grant_type=password', {
-      method: 'POST',
-      headers: { 'apikey': SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password: pass })
-    });
-    const data = await res.json();
-    if (data.error || data.error_description) { showError('الإيميل أو كلمة السر غلط'); btn.disabled=false; btn.innerHTML='تسجيل الدخول'; return; }
-    localStorage.setItem('sb_session', JSON.stringify({ access_token: data.access_token, user: data.user }));
-    showSuccess('تم الدخول بنجاح! جاري التحويل...');
-    setTimeout(() => window.location.href='index.html', 1000);
-  } catch(e) { showError('حدث خطأ، حاول مرة أخرى'); btn.disabled=false; btn.innerHTML='تسجيل الدخول'; }
+const email = document.getElementById(‘loginEmail’).value.trim();
+const pass = document.getElementById(‘loginPass’).value;
+if (!email || !pass) return showError(‘من فضلك أدخل الإيميل وكلمة السر’);
+const btn = document.getElementById(‘loginBtn’);
+btn.disabled = true; btn.innerHTML = ‘<div class="spinner"></div> جاري الدخول…’;
+try {
+const res = await fetch(SUPABASE_URL+’/auth/v1/token?grant_type=password’, {
+method: ‘POST’,
+headers: { ‘apikey’: SUPABASE_ANON_KEY, ‘Content-Type’: ‘application/json’ },
+body: JSON.stringify({ email, password: pass })
+});
+const data = await res.json();
+if (data.error || data.error_description) { showError(‘الإيميل أو كلمة السر غلط’); btn.disabled=false; btn.innerHTML=‘تسجيل الدخول’; return; }
+localStorage.setItem(‘sb_session’, JSON.stringify({ access_token: data.access_token, user: data.user }));
+showSuccess(‘تم الدخول بنجاح! جاري التحويل…’);
+setTimeout(() => window.location.href=‘index.html’, 1000);
+} catch(e) { showError(‘حدث خطأ، حاول مرة أخرى’); btn.disabled=false; btn.innerHTML=‘تسجيل الدخول’; }
 }
 
 async function register() {
-  const name = document.getElementById('regName').value.trim();
-  const email = document.getElementById('regEmail').value.trim();
-  const pass = document.getElementById('regPass').value;
-  if (!name||!email||!pass) return showError('من فضلك أكمل كل البيانات');
-  if (pass.length < 6) return showError('كلمة السر لازم تكون 6 أحرف على الأقل');
-  const btn = document.getElementById('registerBtn');
-  btn.disabled=true; btn.innerHTML='<div class="spinner"></div> جاري التسجيل...';
-  try {
-    const res = await fetch(SUPABASE_URL+'/auth/v1/signup', {
-      method: 'POST',
-      headers: { 'apikey': SUPABASE_ANON_KEY, 'Content-Type': 'application/json' },
-      body: JSON.stringify({ email, password: pass, data: { full_name: name } })
-    });
-    const data = await res.json();
-    if (data.error||data.error_description) { showError(data.error_description||'حدث خطأ في التسجيل'); btn.disabled=false; btn.innerHTML='إنشاء الحساب'; return; }
-    if (data.access_token) {
-      localStorage.setItem('sb_session', JSON.stringify({ access_token: data.access_token, user: data.user }));
-      showSuccess('تم إنشاء حسابك! جاري التحويل...');
-      setTimeout(() => window.location.href='index.html', 1000);
-    } else {
-      showSuccess('تم التسجيل! تحقق من إيميلك لتأكيد الحساب.');
-      btn.disabled=false; btn.innerHTML='إنشاء الحساب';
-    }
-  } catch(e) { showError('حدث خطأ، حاول مرة أخرى'); btn.disabled=false; btn.innerHTML='إنشاء الحساب'; }
+const name = document.getElementById(‘regName’).value.trim();
+const email = document.getElementById(‘regEmail’).value.trim();
+const pass = document.getElementById(‘regPass’).value;
+if (!name||!email||!pass) return showError(‘من فضلك أكمل كل البيانات’);
+if (pass.length < 6) return showError(‘كلمة السر لازم تكون 6 أحرف على الأقل’);
+const btn = document.getElementById(‘registerBtn’);
+btn.disabled=true; btn.innerHTML=’<div class="spinner"></div> جاري التسجيل…’;
+try {
+const res = await fetch(SUPABASE_URL+’/auth/v1/signup’, {
+method: ‘POST’,
+headers: { ‘apikey’: SUPABASE_ANON_KEY, ‘Content-Type’: ‘application/json’ },
+body: JSON.stringify({ email, password: pass, data: { full_name: name } })
+});
+const data = await res.json();
+if (data.error||data.error_description) { showError(data.error_description||‘حدث خطأ في التسجيل’); btn.disabled=false; btn.innerHTML=‘إنشاء الحساب’; return; }
+if (data.access_token) {
+localStorage.setItem(‘sb_session’, JSON.stringify({ access_token: data.access_token, user: data.user }));
+showSuccess(‘تم إنشاء حسابك! جاري التحويل…’);
+setTimeout(() => window.location.href=‘index.html’, 1000);
+} else {
+showSuccess(‘تم التسجيل! تحقق من إيميلك لتأكيد الحساب.’);
+btn.disabled=false; btn.innerHTML=‘إنشاء الحساب’;
+}
+} catch(e) { showError(‘حدث خطأ، حاول مرة أخرى’); btn.disabled=false; btn.innerHTML=‘إنشاء الحساب’; }
 }
 </script>
+
 </body>
 </html>
