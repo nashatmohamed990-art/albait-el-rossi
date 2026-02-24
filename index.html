@@ -2,869 +2,356 @@
 
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>البيت الروسي | منتجات روسية أصيلة</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet"/>
-  <style>
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-```
-:root {
-  --bg:       #09090a;
-  --surface:  #111210;
-  --card:     #161713;
-  --card2:    #1c1e17;
-  --border:   #2a2c20;
-  --green:    #a8b845;
-  --green2:   #8fa034;
-  --green-dim:#2a2e10;
-  --white:    #f5f5ee;
-  --muted:    #6b6e50;
-  --muted2:   #9a9e7a;
-  --text:     #edeee0;
-  --red:      #ff4d4d;
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>البيت الروسي | منتجات روسية أصيلة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700;900&family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0b08;--surface:#111210;--card:#161713;--card2:#1c1e17;
+  --border:#2a2c20;--green:#a8b845;--green2:#8fa034;
+  --white:#f5f5ee;--muted:#6b6e50;--muted2:#9a9e7a;--text:#edeee0;--red:#e53935;
 }
+html{scroll-behavior:smooth}
+body{font-family:'Cairo',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'Cairo', sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  overflow-x: hidden;
+/* HEADER */
+.header{
+background:rgba(8,11,8,0.97);backdrop-filter:blur(20px);
+border-bottom:1px solid var(–border);
+padding:12px 32px;
+display:flex;align-items:center;gap:16px;
+position:sticky;top:0;z-index:200;
 }
-
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--green-dim); border-radius: 3px; }
-
-body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image:
-    radial-gradient(ellipse 600px 400px at 80% 10%, rgba(168,184,69,0.07) 0%, transparent 70%),
-    radial-gradient(ellipse 500px 500px at 10% 80%, rgba(168,184,69,0.05) 0%, transparent 70%);
-  pointer-events: none; z-index: 0;
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo-icon{width:42px;height:42px;background:var(–green);border-radius:10px;display:grid;place-items:center;font-size:22px;flex-shrink:0}
+.logo-name{font-family:‘Tajawal’,sans-serif;font-size:18px;font-weight:800;color:var(–white)}
+.logo-sub{font-size:10px;color:var(–green);letter-spacing:1px}
+.header-actions{margin-right:auto;display:flex;align-items:center;gap:10px}
+.btn-login{
+background:var(–green);color:#080b08;border:none;border-radius:10px;
+padding:9px 18px;font-size:13px;font-weight:800;font-family:‘Cairo’,sans-serif;
+cursor:pointer;transition:all 0.2s;
 }
-
-body::after {
-  content: '';
-  position: fixed; inset: 0;
-  background-image:
-    linear-gradient(rgba(168,184,69,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(168,184,69,0.03) 1px, transparent 1px);
-  background-size: 50px 50px;
-  pointer-events: none; z-index: 0;
+.btn-login:hover{background:var(–green2)}
+.btn-icon{
+width:40px;height:40px;background:var(–card);border:1px solid var(–border);
+border-radius:10px;display:grid;place-items:center;cursor:pointer;
+font-size:18px;transition:all 0.2s;position:relative;
+}
+.btn-icon:hover{border-color:var(–green)}
+.cart-count{
+position:absolute;top:-6px;right:-6px;
+background:var(–green);color:#080b08;
+width:18px;height:18px;border-radius:50%;
+font-size:10px;font-weight:900;display:grid;place-items:center;
 }
 
-.topbar {
-  position: relative; z-index: 50;
-  background: var(--green);
-  padding: 8px 0;
-  text-align: center;
+/* HERO */
+.hero{
+background:linear-gradient(135deg,#0d0f0a 0%,#141810 50%,#0a0c08 100%);
+padding:80px 40px;text-align:center;position:relative;overflow:hidden;
 }
-.topbar-inner {
-  display: flex; align-items: center; justify-content: center; gap: 32px;
+.hero::before{
+content:’’;position:absolute;inset:0;
+background:radial-gradient(ellipse 700px 500px at 50% 50%,rgba(168,184,69,0.08) 0%,transparent 70%);
 }
-.topbar-item {
-  font-size: 12px; font-weight: 700;
-  color: #080b08;
-  display: flex; align-items: center; gap: 6px;
+.hero-badge{
+display:inline-flex;align-items:center;gap:8px;
+background:rgba(168,184,69,0.1);border:1px solid rgba(168,184,69,0.3);
+border-radius:100px;padding:8px 20px;
+font-size:13px;color:var(–green);font-weight:700;margin-bottom:24px;
+}
+.hero-title{
+font-family:‘Tajawal’,sans-serif;font-size:clamp(36px,6vw,72px);
+font-weight:900;line-height:1.1;margin-bottom:20px;
+background:linear-gradient(135deg,var(–white) 0%,var(–green) 100%);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+.hero-sub{font-size:16px;color:var(–muted2);max-width:600px;margin:0 auto 36px;line-height:1.7}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.btn-primary{
+background:var(–green);color:#080b08;border:none;border-radius:14px;
+padding:16px 36px;font-size:16px;font-weight:900;font-family:‘Cairo’,sans-serif;
+cursor:pointer;transition:all 0.25s;
+}
+.btn-primary:hover{background:var(–green2);transform:translateY(-2px)}
+.btn-secondary{
+background:transparent;color:var(–text);border:1px solid var(–border);
+border-radius:14px;padding:16px 36px;font-size:16px;font-weight:700;
+font-family:‘Cairo’,sans-serif;cursor:pointer;transition:all 0.25s;
+}
+.btn-secondary:hover{border-color:var(–green);color:var(–green)}
+.hero-stats{display:flex;justify-content:center;gap:48px;margin-top:56px;flex-wrap:wrap}
+.hero-stat-num{font-family:‘Tajawal’,sans-serif;font-size:36px;font-weight:900;color:var(–green)}
+.hero-stat-lbl{font-size:12px;color:var(–muted2)}
+
+/* FEATURES BAR */
+.features-bar{
+display:flex;justify-content:center;gap:0;
+border-top:1px solid var(–border);border-bottom:1px solid var(–border);
+background:var(–surface);flex-wrap:wrap;
+}
+.feat-item{
+display:flex;align-items:center;gap:10px;
+padding:16px 32px;font-size:13px;font-weight:700;
+border-left:1px solid var(–border);
+}
+.feat-item:last-child{border-left:none}
+.feat-icon{font-size:20px}
+
+/* CATEGORIES */
+.section{padding:60px 40px;max-width:1400px;margin:0 auto}
+.section-title{font-family:‘Tajawal’,sans-serif;font-size:28px;font-weight:800;margin-bottom:8px}
+.section-sub{font-size:14px;color:var(–muted2);margin-bottom:32px}
+.cats{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:36px}
+.cat-btn{
+display:flex;align-items:center;gap:8px;
+background:var(–card);border:1px solid var(–border);
+border-radius:100px;padding:10px 20px;
+font-size:13px;font-weight:700;font-family:‘Cairo’,sans-serif;
+cursor:pointer;transition:all 0.2s;color:var(–muted2);
+}
+.cat-btn:hover,.cat-btn.active{background:var(–green);color:#080b08;border-color:var(–green)}
+
+/* PRODUCTS GRID */
+.products-grid{
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(200px,1fr));
+gap:20px;
+}
+.product-card{
+background:var(–card);border:1px solid var(–border);
+border-radius:16px;overflow:hidden;
+transition:all 0.25s;cursor:pointer;
+}
+.product-card:hover{transform:translateY(-4px);border-color:rgba(168,184,69,0.4);box-shadow:0 12px 40px rgba(0,0,0,0.3)}
+.product-img{
+height:160px;display:flex;align-items:center;justify-content:center;
+background:linear-gradient(135deg,#1a1c14,#222418);
+font-size:64px;position:relative;overflow:hidden;
+}
+.product-img img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.product-badge{
+position:absolute;top:10px;right:10px;
+background:var(–green);color:#080b08;
+font-size:10px;font-weight:900;padding:3px 8px;border-radius:100px;
+}
+.product-info{padding:16px}
+.product-origin{font-size:10px;color:var(–muted);margin-bottom:4px}
+.product-name{font-size:14px;font-weight:700;margin-bottom:8px;line-height:1.4}
+.product-price-row{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.product-price{font-family:‘Tajawal’,sans-serif;font-size:18px;font-weight:800;color:var(–green)}
+.product-old-price{font-size:12px;color:var(–muted);text-decoration:line-through}
+.btn-add{
+width:100%;background:rgba(168,184,69,0.1);border:1px solid rgba(168,184,69,0.2);
+color:var(–green);border-radius:10px;padding:10px;
+font-size:13px;font-weight:800;font-family:‘Cairo’,sans-serif;
+cursor:pointer;transition:all 0.2s;
+}
+.btn-add:hover{background:var(–green);color:#080b08}
+
+/* LOADING */
+.loading-box{grid-column:1/-1;text-align:center;padding:80px 20px}
+.loading-spinner{
+width:48px;height:48px;border:4px solid var(–border);
+border-top-color:var(–green);border-radius:50%;
+animation:spin 0.8s linear infinite;margin:0 auto 20px;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* CART SIDEBAR */
+.cart-overlay{
+position:fixed;inset:0;background:rgba(0,0,0,0.6);
+z-index:300;display:none;
+}
+.cart-overlay.open{display:block}
+.cart-sidebar{
+position:fixed;left:0;top:0;bottom:0;width:380px;max-width:100vw;
+background:var(–card);border-right:1px solid var(–border);
+z-index:301;display:flex;flex-direction:column;
+transform:translateX(-100%);transition:transform 0.3s;
+}
+.cart-overlay.open .cart-sidebar{transform:translateX(0)}
+.cart-header{
+padding:20px 24px;border-bottom:1px solid var(–border);
+display:flex;align-items:center;justify-content:space-between;
+}
+.cart-title{font-family:‘Tajawal’,sans-serif;font-size:20px;font-weight:800}
+.cart-close{background:none;border:none;color:var(–muted2);font-size:20px;cursor:pointer}
+.cart-items{flex:1;overflow-y:auto;padding:16px}
+.cart-empty{text-align:center;padding:60px 20px;color:var(–muted2)}
+.cart-item{
+display:flex;align-items:center;gap:12px;
+padding:12px;background:var(–surface);border:1px solid var(–border);
+border-radius:12px;margin-bottom:10px;
+}
+.cart-item-img{font-size:32px;width:48px;text-align:center;flex-shrink:0}
+.cart-item-name{font-size:13px;font-weight:700;flex:1}
+.cart-item-price{font-size:13px;font-weight:800;color:var(–green)}
+.cart-qty{display:flex;align-items:center;gap:8px;margin-top:4px}
+.qty-btn{
+width:24px;height:24px;background:var(–card2);border:1px solid var(–border);
+border-radius:6px;font-size:14px;cursor:pointer;color:var(–text);
+display:grid;place-items:center;
+}
+.qty-num{font-size:13px;font-weight:700;min-width:20px;text-align:center}
+.cart-footer{padding:20px 24px;border-top:1px solid var(–border)}
+.cart-total{
+display:flex;justify-content:space-between;
+font-size:16px;font-weight:800;margin-bottom:16px;
+}
+.cart-total-price{color:var(–green);font-family:‘Tajawal’,sans-serif;font-size:22px}
+.btn-checkout{
+width:100%;background:var(–green);color:#080b08;
+border:none;border-radius:12px;padding:16px;
+font-size:15px;font-weight:900;font-family:‘Cairo’,sans-serif;cursor:pointer;
+}
+.btn-checkout:hover{background:var(–green2)}
+
+/* TOAST */
+.toast{
+position:fixed;bottom:24px;right:24px;
+background:var(–green);color:#080b08;
+border-radius:12px;padding:14px 20px;
+font-size:14px;font-weight:700;z-index:500;
+transform:translateY(80px);opacity:0;transition:all 0.4s;pointer-events:none;
+}
+.toast.show{transform:translateY(0);opacity:1}
+
+/* FOOTER */
+footer{
+background:var(–surface);border-top:1px solid var(–border);
+padding:60px 40px 24px;
+}
+.footer-grid{
+display:grid;grid-template-columns:2fr 1fr 1fr 1fr;
+gap:40px;max-width:1200px;margin:0 auto 40px;
+}
+.footer-brand-name{font-family:‘Tajawal’,sans-serif;font-size:22px;font-weight:800;margin-bottom:12px}
+.footer-desc{font-size:13px;color:var(–muted2);line-height:1.7;margin-bottom:20px}
+.footer-col-title{font-size:14px;font-weight:800;margin-bottom:16px;color:var(–white)}
+.footer-links{display:flex;flex-direction:column;gap:10px}
+.footer-links a{font-size:13px;color:var(–muted2);text-decoration:none;transition:color 0.2s}
+.footer-links a:hover{color:var(–green)}
+.footer-contact-item{display:flex;align-items:center;gap:10px;font-size:13px;color:var(–muted2);margin-bottom:10px}
+.footer-bottom{
+border-top:1px solid var(–border);padding-top:24px;
+text-align:center;font-size:12px;color:var(–muted);
+max-width:1200px;margin:0 auto;
 }
 
-header {
-  position: sticky; top: 0; z-index: 100;
-  background: rgba(8,11,8,0.92);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
+@media(max-width:768px){
+.header{padding:10px 16px}
+.hero{padding:60px 20px}
+.section{padding:40px 16px}
+.features-bar{display:none}
+.footer-grid{grid-template-columns:1fr 1fr}
+.products-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+.hero-stats{gap:24px}
 }
+@media(max-width:400px){
+.products-grid{grid-template-columns:1fr}
+}
+</style>
 
-.header-main {
-  max-width: 1400px; margin: 0 auto;
-  padding: 16px 40px;
-  display: flex; align-items: center; gap: 24px;
-}
-
-.logo {
-  display: flex; align-items: center; gap: 12px;
-  text-decoration: none; flex-shrink: 0;
-}
-.logo-icon {
-  width: 44px; height: 44px;
-  background: var(--green);
-  border-radius: 10px;
-  display: grid; place-items: center;
-  font-size: 22px;
-}
-.logo-text { line-height: 1.1; }
-.logo-name {
-  font-family: 'Tajawal', sans-serif;
-  font-size: 20px; font-weight: 800;
-  color: var(--white);
-}
-.logo-sub {
-  font-size: 10px; color: var(--green);
-  letter-spacing: 1px; font-weight: 500;
-}
-
-.search-bar {
-  flex: 1;
-  display: flex; align-items: center;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  overflow: hidden;
-  transition: border-color 0.2s;
-}
-.search-bar:focus-within { border-color: var(--green); }
-.search-bar input {
-  flex: 1; background: none; border: none; outline: none;
-  padding: 12px 18px;
-  font-size: 14px; color: var(--text);
-  font-family: 'Cairo', sans-serif;
-  text-align: right;
-}
-.search-bar input::placeholder { color: var(--muted); }
-.search-btn {
-  padding: 12px 20px;
-  background: var(--green);
-  border: none; cursor: pointer;
-  color: #080b08; font-size: 16px;
-  transition: background 0.2s;
-}
-.search-btn:hover { background: var(--green2); }
-
-.header-actions {
-  display: flex; align-items: center; gap: 8px; flex-shrink: 0;
-}
-.icon-btn {
-  position: relative;
-  width: 44px; height: 44px;
-  border-radius: 10px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  display: grid; place-items: center;
-  font-size: 18px; cursor: pointer;
-  transition: all 0.2s; text-decoration: none;
-  color: var(--text);
-}
-.icon-btn:hover { border-color: var(--green); background: var(--card2); }
-.badge {
-  position: absolute; top: -5px; right: -5px;
-  width: 18px; height: 18px;
-  background: var(--green);
-  color: #080b08; font-size: 10px; font-weight: 800;
-  border-radius: 50%; display: grid; place-items: center;
-  font-family: 'Cairo', sans-serif;
-}
-
-.btn-login {
-  background: var(--green);
-  color: #080b08;
-  border: none; border-radius: 10px;
-  padding: 10px 20px;
-  font-size: 13px; font-weight: 700;
-  font-family: 'Cairo', sans-serif;
-  cursor: pointer; transition: all 0.2s;
-  white-space: nowrap;
-}
-.btn-login:hover { background: var(--green2); transform: translateY(-1px); }
-
-.nav-cats {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  position: relative; z-index: 90;
-}
-.nav-cats-inner {
-  max-width: 1400px; margin: 0 auto;
-  padding: 0 40px;
-  display: flex; align-items: center; gap: 0;
-  overflow-x: auto;
-}
-.nav-cats-inner::-webkit-scrollbar { height: 0; }
-.cat-link {
-  padding: 14px 20px;
-  font-size: 13px; font-weight: 600;
-  color: var(--muted2);
-  text-decoration: none; white-space: nowrap;
-  border-bottom: 2px solid transparent;
-  transition: all 0.2s;
-  display: flex; align-items: center; gap: 8px;
-  cursor: pointer;
-}
-.cat-link:hover, .cat-link.active {
-  color: var(--green);
-  border-bottom-color: var(--green);
-}
-
-.hero {
-  position: relative; z-index: 5;
-  max-width: 1400px; margin: 0 auto;
-  padding: 40px 40px 20px;
-  display: grid;
-  grid-template-columns: 1fr 360px;
-  gap: 20px;
-}
-
-.hero-main {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  overflow: hidden;
-  position: relative;
-  min-height: 420px;
-  display: flex; align-items: flex-end;
-}
-.hero-bg {
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(ellipse 70% 80% at 70% 50%, rgba(168,184,69,0.13) 0%, transparent 70%),
-    linear-gradient(135deg, #09090a 0%, #131408 100%);
-}
-.hero-pattern {
-  position: absolute; inset: 0;
-  background-image: repeating-linear-gradient(
-    45deg, transparent, transparent 20px,
-    rgba(45,222,110,0.02) 20px, rgba(45,222,110,0.02) 21px
-  );
-}
-.hero-deco {
-  position: absolute; top: 30px; left: 40px;
-  font-size: 160px; opacity: 0.04;
-  user-select: none;
-  animation: floatDeco 6s ease-in-out infinite;
-}
-@keyframes floatDeco {
-  0%,100% { transform: translateY(0) rotate(-5deg); }
-  50%      { transform: translateY(-12px) rotate(0deg); }
-}
-
-.hero-content {
-  position: relative; z-index: 2;
-  padding: 40px 48px;
-}
-.hero-tag {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(168,184,69,0.1);
-  border: 1px solid rgba(168,184,69,0.25);
-  border-radius: 100px;
-  padding: 6px 14px;
-  font-size: 11px; font-weight: 700;
-  color: var(--green); letter-spacing: 1px;
-  margin-bottom: 20px;
-}
-.hero-tag::before {
-  content: '';
-  width: 6px; height: 6px;
-  background: var(--green);
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-}
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
-
-.hero-title {
-  font-family: 'Tajawal', sans-serif;
-  font-size: clamp(34px, 4vw, 56px);
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -1px;
-  margin-bottom: 16px;
-}
-.hero-title .accent { color: var(--green); }
-
-.hero-sub {
-  font-size: 15px; color: var(--muted2);
-  font-weight: 400; line-height: 1.7;
-  margin-bottom: 32px;
-  max-width: 460px;
-}
-
-.hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
-.btn-green {
-  background: var(--green);
-  color: #080b08;
-  border: none; border-radius: 10px;
-  padding: 14px 28px;
-  font-size: 14px; font-weight: 800;
-  font-family: 'Cairo', sans-serif;
-  cursor: pointer; transition: all 0.25s;
-  display: flex; align-items: center; gap: 8px;
-}
-.btn-green:hover { background: var(--green2); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(168,184,69,0.3); }
-.btn-border {
-  background: transparent;
-  color: var(--text);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 13px 24px;
-  font-size: 14px; font-weight: 600;
-  font-family: 'Cairo', sans-serif;
-  cursor: pointer; transition: all 0.25s;
-}
-.btn-border:hover { border-color: var(--green); color: var(--green); }
-
-.hero-stats {
-  display: flex; gap: 32px;
-  margin-top: 36px; padding-top: 32px;
-  border-top: 1px solid var(--border);
-}
-.hstat-num {
-  font-family: 'Tajawal', sans-serif;
-  font-size: 26px; font-weight: 800;
-  color: var(--green);
-}
-.hstat-lbl { font-size: 12px; color: var(--muted2); margin-top: 2px; }
-
-.hero-side { display: flex; flex-direction: column; gap: 16px; }
-.hero-side-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: 24px;
-  flex: 1;
-  display: flex; flex-direction: column;
-  justify-content: space-between;
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-  transition: border-color 0.3s, transform 0.3s;
-}
-.hero-side-card:hover { border-color: rgba(168,184,69,0.4); transform: translateY(-2px); }
-.side-card-label {
-  font-size: 11px; font-weight: 700;
-  letter-spacing: 1px; text-transform: uppercase;
-  color: var(--green); margin-bottom: 10px;
-}
-.side-card-title {
-  font-family: 'Tajawal', sans-serif;
-  font-size: 20px; font-weight: 800;
-  line-height: 1.2; margin-bottom: 8px;
-}
-.side-card-desc { font-size: 12px; color: var(--muted2); line-height: 1.6; }
-.side-card-emoji {
-  position: absolute; bottom: 16px; left: 20px;
-  font-size: 50px; opacity: 0.2;
-}
-.side-card-cta {
-  display: inline-flex; align-items: center; gap: 6px;
-  margin-top: 16px;
-  font-size: 12px; font-weight: 700;
-  color: var(--green);
-}
-
-.section-wrap {
-  position: relative; z-index: 5;
-  max-width: 1400px; margin: 0 auto;
-  padding: 40px 40px 0;
-}
-.sec-head {
-  display: flex; align-items: center; justify-content: space-between;
-  margin-bottom: 24px;
-}
-.sec-title {
-  font-family: 'Tajawal', sans-serif;
-  font-size: 26px; font-weight: 800;
-  letter-spacing: -0.5px;
-  display: flex; align-items: center; gap: 10px;
-}
-.sec-title::before {
-  content: '';
-  width: 4px; height: 28px;
-  background: var(--green);
-  border-radius: 2px;
-}
-.see-all {
-  font-size: 13px; font-weight: 700;
-  color: var(--green); text-decoration: none;
-  display: flex; align-items: center; gap: 6px;
-  transition: gap 0.2s; cursor: pointer;
-}
-.see-all:hover { gap: 10px; }
-
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 16px;
-}
-
-.product-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  overflow: hidden;
-  transition: all 0.3s;
-  cursor: pointer;
-  position: relative;
-}
-.product-card:hover {
-  border-color: rgba(168,184,69,0.35);
-  transform: translateY(-4px);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-}
-
-.product-img {
-  height: 180px;
-  background: var(--surface);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 64px;
-  position: relative;
-  overflow: hidden;
-}
-.product-img::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(180deg, transparent 60%, rgba(8,11,8,0.6) 100%);
-}
-
-.prod-badge {
-  position: absolute; top: 10px; right: 10px;
-  font-size: 10px; font-weight: 800;
-  padding: 4px 10px; border-radius: 100px;
-  z-index: 2;
-}
-.badge-new { background: var(--green); color: #080b08; }
-.badge-sale { background: var(--red); color: #fff; }
-.badge-hot { background: #ff8c00; color: #fff; }
-
-.wishlist-btn {
-  position: absolute; top: 10px; left: 10px;
-  width: 32px; height: 32px;
-  background: rgba(8,11,8,0.7);
-  border: 1px solid var(--border);
-  border-radius: 50%;
-  display: grid; place-items: center;
-  font-size: 14px; cursor: pointer;
-  z-index: 2; transition: all 0.2s;
-}
-.wishlist-btn:hover { background: rgba(45,222,110,0.2); border-color: var(--green); }
-
-.product-info { padding: 16px; }
-.product-cat {
-  font-size: 10px; font-weight: 700;
-  letter-spacing: 1px; text-transform: uppercase;
-  color: var(--green); margin-bottom: 6px;
-}
-.product-name {
-  font-size: 14px; font-weight: 700;
-  line-height: 1.4; margin-bottom: 4px;
-  color: var(--white);
-}
-.product-origin {
-  font-size: 11px; color: var(--muted);
-  margin-bottom: 12px;
-  display: flex; align-items: center; gap: 4px;
-}
-
-.product-price-row {
-  display: flex; align-items: center; justify-content: space-between;
-}
-.product-price {
-  font-family: 'Tajawal', sans-serif;
-  font-size: 20px; font-weight: 800;
-  color: var(--green);
-}
-.price-currency { font-size: 13px; font-weight: 600; }
-.price-old {
-  font-size: 12px; color: var(--muted);
-  text-decoration: line-through; margin-top: 2px;
-}
-
-.add-btn {
-  width: 36px; height: 36px;
-  background: var(--green);
-  border: none; border-radius: 8px;
-  display: grid; place-items: center;
-  font-size: 18px; cursor: pointer;
-  color: #080b08; font-weight: 900;
-  transition: all 0.2s; flex-shrink: 0;
-}
-.add-btn:hover { background: var(--green2); transform: scale(1.1); }
-
-.product-stars {
-  display: flex; align-items: center; gap: 4px;
-  margin-bottom: 8px;
-}
-.stars-val { font-size: 12px; color: #fbbf24; }
-.stars-count { font-size: 11px; color: var(--muted); }
-
-/* Loading skeleton */
-.skeleton {
-  background: linear-gradient(90deg, var(--card) 25%, var(--card2) 50%, var(--card) 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: 8px;
-}
-@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
-
-.cats-strip {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 12px;
-}
-.cat-card {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 14px;
-  padding: 20px 12px;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.25s;
-  text-decoration: none;
-}
-.cat-card:hover {
-  border-color: var(--green);
-  background: var(--card2);
-  transform: translateY(-3px);
-}
-.cat-card:hover .cat-card-name { color: var(--green); }
-.cat-card-icon { font-size: 32px; margin-bottom: 10px; display: block; }
-.cat-card-name {
-  font-size: 12px; font-weight: 700;
-  color: var(--text); transition: color 0.2s;
-}
-.cat-card-count { font-size: 10px; color: var(--muted); margin-top: 4px; }
-
-.banner-wrap {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.banner-card {
-  border-radius: 18px;
-  padding: 36px 40px;
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  transition: transform 0.3s;
-  min-height: 180px;
-  display: flex; flex-direction: column; justify-content: flex-end;
-}
-.banner-card:hover { transform: translateY(-3px); }
-.banner-1 { background: linear-gradient(135deg, #1c200a 0%, #161a08 100%); border: 1px solid rgba(168,184,69,0.2); }
-.banner-2 { background: linear-gradient(135deg, #1a1a0e 0%, #221f0d 100%); border: 1px solid rgba(255,200,0,0.15); }
-.banner-emoji { position: absolute; top: 20px; left: 30px; font-size: 80px; opacity: 0.25; }
-.banner-tag { font-size: 10px; font-weight: 800; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 8px; }
-.banner-1 .banner-tag { color: var(--green); }
-.banner-2 .banner-tag { color: #fbbf24; }
-.banner-title { font-family: 'Tajawal', sans-serif; font-size: 24px; font-weight: 800; line-height: 1.2; margin-bottom: 8px; }
-.banner-sub { font-size: 13px; color: var(--muted2); }
-
-.features-bar {
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  position: relative; z-index: 5;
-  margin-top: 48px;
-}
-.features-bar-inner {
-  max-width: 1400px; margin: 0 auto;
-  padding: 0 40px;
-  display: grid; grid-template-columns: repeat(4, 1fr);
-}
-.feat-item {
-  padding: 28px 24px;
-  display: flex; align-items: center; gap: 16px;
-  border-left: 1px solid var(--border);
-}
-.feat-item:last-child { border-left: none; }
-.feat-icon { width: 48px; height: 48px; background: rgba(168,184,69,0.1); border-radius: 12px; display: grid; place-items: center; font-size: 22px; flex-shrink: 0; }
-.feat-title { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
-.feat-desc { font-size: 12px; color: var(--muted2); line-height: 1.5; }
-
-.testimonials-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-.testi-card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 28px; }
-.testi-stars { color: #fbbf24; font-size: 14px; margin-bottom: 14px; }
-.testi-text { font-size: 14px; color: var(--muted2); line-height: 1.7; font-style: italic; margin-bottom: 20px; }
-.testi-author { display: flex; align-items: center; gap: 12px; }
-.testi-avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--green-dim); display: grid; place-items: center; font-size: 18px; border: 2px solid rgba(168,184,69,0.3); }
-.testi-name { font-size: 14px; font-weight: 700; }
-.testi-city { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 4px; }
-
-.newsletter { position: relative; z-index: 5; max-width: 1400px; margin: 0 auto; padding: 40px 40px 60px; }
-.newsletter-inner { background: linear-gradient(135deg, var(--card) 0%, var(--card2) 100%); border: 1px solid rgba(168,184,69,0.2); border-radius: 24px; padding: 56px 60px; text-align: center; position: relative; overflow: hidden; }
-.newsletter-inner::before { content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 60%; height: 1px; background: linear-gradient(90deg, transparent, var(--green), transparent); }
-.nl-glow { position: absolute; width: 400px; height: 200px; background: rgba(168,184,69,0.08); border-radius: 50%; filter: blur(80px); top: 50%; left: 50%; transform: translate(-50%,-50%); pointer-events: none; }
-.nl-title { font-family: 'Tajawal', sans-serif; font-size: 32px; font-weight: 800; letter-spacing: -0.5px; margin-bottom: 10px; position: relative; }
-.nl-sub { font-size: 15px; color: var(--muted2); margin-bottom: 32px; position: relative; }
-.nl-form { display: flex; gap: 12px; max-width: 480px; margin: 0 auto; position: relative; }
-.nl-input { flex: 1; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 18px; color: var(--text); font-family: 'Cairo', sans-serif; font-size: 14px; outline: none; transition: border-color 0.2s; text-align: right; }
-.nl-input::placeholder { color: var(--muted); }
-.nl-input:focus { border-color: var(--green); }
-
-footer { position: relative; z-index: 5; background: var(--surface); border-top: 1px solid var(--border); }
-.footer-main { max-width: 1400px; margin: 0 auto; padding: 56px 40px 40px; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; }
-.footer-brand .logo-name { font-size: 22px; }
-.footer-desc { font-size: 13px; color: var(--muted2); line-height: 1.7; margin: 16px 0 24px; }
-.social-links { display: flex; gap: 10px; }
-.social-link { width: 38px; height: 38px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; display: grid; place-items: center; font-size: 16px; text-decoration: none; transition: all 0.2s; }
-.social-link:hover { border-color: var(--green); background: var(--card2); }
-.footer-col-title { font-size: 14px; font-weight: 800; margin-bottom: 20px; color: var(--white); }
-.footer-links-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-.footer-links-list a { font-size: 13px; color: var(--muted2); text-decoration: none; transition: color 0.2s; display: flex; align-items: center; gap: 6px; }
-.footer-links-list a:hover { color: var(--green); }
-.footer-bottom { max-width: 1400px; margin: 0 auto; padding: 20px 40px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-.footer-copy { font-size: 12px; color: var(--muted); }
-.payment-icons { display: flex; gap: 8px; }
-.pay-icon { background: var(--card); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 11px; color: var(--muted2); font-weight: 600; }
-
-.cart-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); z-index: 200; opacity: 0; pointer-events: none; transition: opacity 0.3s; }
-.cart-overlay.open { opacity: 1; pointer-events: all; }
-.cart-sidebar { position: fixed; top: 0; left: 0; bottom: 0; width: 380px; background: var(--surface); border-right: 1px solid var(--border); z-index: 201; transform: translateX(-100%); transition: transform 0.35s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; }
-.cart-sidebar.open { transform: translateX(0); }
-.cart-header { padding: 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-.cart-title { font-family: 'Tajawal', sans-serif; font-size: 20px; font-weight: 800; }
-.cart-close { width: 36px; height: 36px; background: var(--card); border: 1px solid var(--border); border-radius: 8px; display: grid; place-items: center; font-size: 16px; cursor: pointer; transition: all 0.2s; }
-.cart-close:hover { border-color: var(--red); color: var(--red); }
-.cart-body { flex: 1; overflow-y: auto; padding: 20px; }
-.cart-item { display: flex; gap: 14px; align-items: center; padding: 16px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 12px; }
-.cart-item-img { width: 56px; height: 56px; background: var(--bg); border-radius: 8px; display: grid; place-items: center; font-size: 28px; flex-shrink: 0; }
-.cart-item-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
-.cart-item-price { font-size: 14px; font-weight: 800; color: var(--green); }
-.cart-qty { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
-.qty-btn { width: 26px; height: 26px; border-radius: 6px; background: var(--surface); border: 1px solid var(--border); display: grid; place-items: center; font-size: 14px; cursor: pointer; transition: all 0.2s; }
-.qty-btn:hover { border-color: var(--green); color: var(--green); }
-.qty-num { font-size: 14px; font-weight: 700; min-width: 20px; text-align: center; }
-.cart-footer { padding: 20px; border-top: 1px solid var(--border); }
-.cart-total-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
-.cart-total-lbl { font-size: 14px; color: var(--muted2); }
-.cart-total-val { font-family: 'Tajawal', sans-serif; font-size: 24px; font-weight: 800; color: var(--green); }
-.checkout-btn { width: 100%; background: var(--green); color: #080b08; border: none; border-radius: 12px; padding: 16px; font-size: 15px; font-weight: 800; font-family: 'Cairo', sans-serif; cursor: pointer; transition: all 0.2s; }
-.checkout-btn:hover { background: var(--green2); transform: translateY(-1px); box-shadow: 0 8px 25px rgba(168,184,69,0.3); }
-
-.toast { position: fixed; bottom: 24px; left: 24px; background: var(--green); color: #080b08; border-radius: 12px; padding: 14px 20px; font-size: 14px; font-weight: 700; font-family: 'Cairo', sans-serif; z-index: 300; transform: translateY(80px); opacity: 0; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 30px rgba(168,184,69,0.4); }
-.toast.show { transform: translateY(0); opacity: 1; }
-
-@media (max-width: 1100px) {
-  .products-grid { grid-template-columns: repeat(3, 1fr); }
-  .cats-strip { grid-template-columns: repeat(4, 1fr); }
-  .hero { grid-template-columns: 1fr; }
-  .hero-side { flex-direction: row; }
-}
-@media (max-width: 768px) {
-  .header-main { padding: 12px 16px; }
-  .section-wrap { padding: 24px 16px 0; }
-  .hero { padding: 16px; }
-  .products-grid { grid-template-columns: repeat(2, 1fr); }
-  .cats-strip { grid-template-columns: repeat(3, 1fr); }
-  .banner-wrap { grid-template-columns: 1fr; }
-  .features-bar-inner { grid-template-columns: repeat(2, 1fr); }
-  .testimonials-row { grid-template-columns: 1fr; }
-  .footer-main { grid-template-columns: 1fr 1fr; }
-  .footer-bottom { flex-direction: column; gap: 12px; }
-  .nav-cats-inner { padding: 0 16px; }
-  .hero-stats { flex-wrap: wrap; gap: 16px; }
-  .hero-side { display: none; }
-  .nl-form { flex-direction: column; }
-  .newsletter-inner { padding: 36px 24px; }
-}
-```
-
-  </style>
 </head>
 <body>
 
-<!-- TOP BAR -->
+<!-- CART OVERLAY -->
 
-<div class="topbar">
-  <div class="topbar-inner">
-    <div class="topbar-item">🚚 شحن مجاني للطلبات فوق 200 ريال</div>
-    <div class="topbar-item">🇷🇺 منتجات روسية أصيلة 100%</div>
-    <div class="topbar-item">📦 توصيل لجميع الدول العربية</div>
+<div class="cart-overlay" id="cartOverlay" onclick="closeCart(event)">
+  <div class="cart-sidebar">
+    <div class="cart-header">
+      <div class="cart-title">🛒 سلة التسوق</div>
+      <button class="cart-close" onclick="toggleCart()">✕</button>
+    </div>
+    <div class="cart-items" id="cartItems"></div>
+    <div class="cart-footer" id="cartFooter" style="display:none">
+      <div class="cart-total">
+        <span>الإجمالي</span>
+        <span class="cart-total-price" id="cartTotal">0 ريال</span>
+      </div>
+      <button class="btn-checkout" onclick="window.location.href='checkout.html'">إتمام الطلب ←</button>
+    </div>
   </div>
 </div>
 
 <!-- HEADER -->
 
-<header>
-  <div class="header-main">
-    <a class="logo" href="#">
-      <div class="logo-icon">🇷🇺</div>
-      <div class="logo-text">
-        <div class="logo-name">البيت الروسي</div>
-        <div class="logo-sub">AL-BAIT AL-RUSSI</div>
-      </div>
-    </a>
-    <div class="search-bar">
-      <input type="text" id="searchInput" placeholder="ابحث عن منتجات روسية..." oninput="filterProducts(this.value)"/>
-      <button class="search-btn">🔍</button>
+<header class="header">
+  <a class="logo" href="index.html">
+    <div class="logo-icon">🇷🇺</div>
+    <div>
+      <div class="logo-name">البيت الروسي</div>
+      <div class="logo-sub">AL-BAIT AL-RUSSI</div>
     </div>
-    <div class="header-actions">
-      <a class="icon-btn" href="#">❤️</a>
-      <button class="icon-btn" onclick="toggleCart()">
-        🛒
-        <span class="badge" id="cartCount">0</span>
-      </button>
-      <button class="btn-login" id="authBtn" onclick="handleAuth()">تسجيل الدخول</button>
+  </a>
+  <div class="header-actions">
+    <button class="btn-login" id="authBtn" onclick="handleAuth()">تسجيل الدخول</button>
+    <div class="btn-icon" onclick="toggleCart()">
+      🛒
+      <div class="cart-count" id="cartCount">0</div>
     </div>
   </div>
 </header>
 
-<!-- NAV CATEGORIES -->
-
-<nav class="nav-cats">
-  <div class="nav-cats-inner">
-    <a class="cat-link active" onclick="filterByCategory(null, this)">🏠 الكل</a>
-    <a class="cat-link" onclick="filterByCategory('شوكولاتة', this)">🍫 شوكولاتة وحلويات</a>
-    <a class="cat-link" onclick="filterByCategory('شاي', this)">🫖 شاي وقهوة</a>
-    <a class="cat-link" onclick="filterByCategory('فراء', this)">🐻 فراء روسي</a>
-    <a class="cat-link" onclick="filterByCategory('سكاكين', this)">🔪 سكاكين</a>
-    <a class="cat-link" onclick="filterByCategory('تجميل', this)">🧴 مستحضرات تجميل</a>
-    <a class="cat-link" onclick="filterByCategory('صحة', this)">💊 مكملات غذائية</a>
-    <a class="cat-link" onclick="filterByCategory('هدايا', this)">🎁 هدايا مميزة</a>
-  </div>
-</nav>
-
 <!-- HERO -->
 
 <section class="hero">
-  <div class="hero-main">
-    <div class="hero-bg"></div>
-    <div class="hero-pattern"></div>
-    <div class="hero-deco">🐻</div>
-    <div class="hero-content">
-      <div class="hero-tag">عروض نهاية الأسبوع</div>
-      <h1 class="hero-title">
-        أفضل المنتجات<br>
-        الروسية <span class="accent">الأصيلة</span><br>
-        لبيتك
-      </h1>
-      <p class="hero-sub">
-        نجلب لك أجود المنتجات الروسية مباشرة من المصنع — شوكولاتة، شاي، فراء، سكاكين، وأكثر. توصيل سريع للسعودية والإمارات وجميع الدول العربية.
-      </p>
-      <div class="hero-btns">
-        <button class="btn-green" onclick="document.getElementById('products-section').scrollIntoView({behavior:'smooth'})">تسوّق الآن ←</button>
-        <button class="btn-border">اكتشف العروض</button>
-      </div>
-      <div class="hero-stats">
-        <div><div class="hstat-num">+5000</div><div class="hstat-lbl">عميل راضٍ</div></div>
-        <div><div class="hstat-num" id="productsCount">+200</div><div class="hstat-lbl">منتج روسي</div></div>
-        <div><div class="hstat-num">4.9★</div><div class="hstat-lbl">تقييم العملاء</div></div>
-      </div>
+  <div style="position:relative;z-index:2">
+    <div class="hero-badge">🎁 عروض نهاية الأسبوع</div>
+    <h1 class="hero-title">أفضل المنتجات<br/>الروسية الأصيلة<br/>لبيتك</h1>
+    <p class="hero-sub">نجلب لك أجود المنتجات الروسية مباشرة من المصنع — شوكولاتة، شاي، فراء، سكاكين، وأكثر. توصيل سريع للسعودية والإمارات وجميع الدول العربية.</p>
+    <div class="hero-btns">
+      <button class="btn-primary" onclick="document.getElementById('products-section').scrollIntoView({behavior:'smooth'})">تسوّق الآن ←</button>
+      <button class="btn-secondary">اكتشف العروض</button>
     </div>
-  </div>
-  <div class="hero-side">
-    <div class="hero-side-card">
-      <div>
-        <div class="side-card-label">🔥 الأكثر مبيعاً</div>
-        <div class="side-card-title">شوكولاتة ميشكا الروسية الأصلية</div>
-        <div class="side-card-desc">الشوكولاتة الروسية الأشهر منذ 1913 — طعم لا ينسى</div>
-        <div class="side-card-cta">تسوّق الآن ←</div>
-      </div>
-      <div class="side-card-emoji">🍫</div>
-    </div>
-    <div class="hero-side-card">
-      <div>
-        <div class="side-card-label" style="color:#fbbf24">✨ فاخر</div>
-        <div class="side-card-title">فراء الدب الروسي الأصلي</div>
-        <div class="side-card-desc">فراء طبيعي 100% من أعماق سيبيريا الروسية</div>
-        <div class="side-card-cta" style="color:#fbbf24">اكتشف الآن ←</div>
-      </div>
-      <div class="side-card-emoji">🐻</div>
+    <div class="hero-stats">
+      <div><div class="hero-stat-num">5000+</div><div class="hero-stat-lbl">عميل راضٍ</div></div>
+      <div><div class="hero-stat-num" id="productsCount">200+</div><div class="hero-stat-lbl">منتج روسي</div></div>
+      <div><div class="hero-stat-num">4.9</div><div class="hero-stat-lbl">★ تقييم العملاء</div></div>
     </div>
   </div>
 </section>
 
-<!-- PRODUCTS SECTION -->
-
-<div class="section-wrap" id="products-section" style="padding-top:48px">
-  <div class="sec-head">
-    <div class="sec-title" id="sectionTitle">جميع المنتجات</div>
-    <span class="see-all" onclick="filterByCategory(null, document.querySelector('.cat-link'))">عرض الكل ←</span>
-  </div>
-  <div class="products-grid" id="productsGrid">
-    <!-- سيتم تحميل المنتجات هنا من Supabase -->
-    <div style="grid-column:1/-1; text-align:center; padding:60px; color:var(--muted2)">
-      <div style="font-size:48px;margin-bottom:16px">⏳</div>
-      <div>جاري تحميل المنتجات...</div>
-    </div>
-  </div>
-</div>
-
-<!-- BANNERS -->
-
-<div class="section-wrap" style="padding-top:32px; padding-bottom:0">
-  <div class="banner-wrap">
-    <div class="banner-card banner-1">
-      <div class="banner-emoji">🍫</div>
-      <div class="banner-tag">عرض خاص</div>
-      <div class="banner-title">اشترِ 3 علب شوكولاتة واحصل على الرابعة مجاناً</div>
-      <div class="banner-sub">العرض ساري حتى نهاية الأسبوع</div>
-    </div>
-    <div class="banner-card banner-2">
-      <div class="banner-emoji">🐻</div>
-      <div class="banner-tag" style="color:#fbbf24">فاخر</div>
-      <div class="banner-title">فراء روسي طبيعي 100% من سيبيريا</div>
-      <div class="banner-sub">دب · ثعلب · راكون — جودة استثنائية</div>
-    </div>
-  </div>
-</div>
-
 <!-- FEATURES BAR -->
 
-<div class="features-bar" style="margin-top:56px">
-  <div class="features-bar-inner">
-    <div class="feat-item">
-      <div class="feat-icon">🚚</div>
-      <div><div class="feat-title">شحن سريع وموثوق</div><div class="feat-desc">توصيل 3-5 أيام للسعودية والإمارات وباقي الدول</div></div>
-    </div>
-    <div class="feat-item">
-      <div class="feat-icon">✅</div>
-      <div><div class="feat-title">منتجات أصيلة 100%</div><div class="feat-desc">مباشرة من المصدر الروسي مع شهادة الأصالة</div></div>
-    </div>
-    <div class="feat-item">
-      <div class="feat-icon">🔄</div>
-      <div><div class="feat-title">إرجاع مجاني</div><div class="feat-desc">ضمان الرضا التام أو استرداد كامل للمبلغ</div></div>
-    </div>
-    <div class="feat-item">
-      <div class="feat-icon">💳</div>
-      <div><div class="feat-title">دفع آمن ومتنوع</div><div class="feat-desc">مدى، فيزا، ماستركارد، آبل باي، تحويل بنكي</div></div>
-    </div>
-  </div>
+<div class="features-bar">
+  <div class="feat-item"><span class="feat-icon">🚚</span> شحن سريع فوق 200 ريال</div>
+  <div class="feat-item"><span class="feat-icon">✅</span> أصيلة 100%</div>
+  <div class="feat-item"><span class="feat-icon">🔄</span> إرجاع خلال 14 يوم</div>
+  <div class="feat-item"><span class="feat-icon">🌍</span> الدول العربية</div>
 </div>
 
-<!-- TESTIMONIALS -->
+<!-- PRODUCTS -->
 
-<div class="section-wrap" style="padding-top:56px">
-  <div class="sec-head"><div class="sec-title">آراء عملائنا ❤️</div></div>
-  <div class="testimonials-row">
-    <div class="testi-card">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">"جربت شوكولاتة ميشكا لأول مرة وأصبحت من أكثر الأشياء اللي أطلبها. الطعم أصيل جداً ومختلف عن أي شوكولاتة ثانية."</p>
-      <div class="testi-author">
-        <div class="testi-avatar">👨</div>
-        <div><div class="testi-name">محمد العتيبي</div><div class="testi-city">📍 الرياض، السعودية</div></div>
-      </div>
-    </div>
-    <div class="testi-card">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">"الشاي الروسي اللي طلبته كان ممتاز جداً، وصل سريع وكان مغلف بشكل محترم. سأطلب مرة ثانية بكل تأكيد."</p>
-      <div class="testi-author">
-        <div class="testi-avatar">👩</div>
-        <div><div class="testi-name">نورة الشمري</div><div class="testi-city">📍 جدة، السعودية</div></div>
-      </div>
-    </div>
-    <div class="testi-card">
-      <div class="testi-stars">★★★★★</div>
-      <p class="testi-text">"طلبت فراء الثعلب الروسي وجاء بجودة خيالية. الموقع سهل وسريع والدعم ردّ علي فوراً. شكراً البيت الروسي."</p>
-      <div class="testi-author">
-        <div class="testi-avatar">👨‍💼</div>
-        <div><div class="testi-name">خالد الدوسري</div><div class="testi-city">📍 دبي، الإمارات</div></div>
-      </div>
-    </div>
+<div class="section" id="products-section">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+    <div class="section-title">جميع المنتجات</div>
+    <span style="font-size:13px;color:var(--green);cursor:pointer" onclick="filterProducts(null)">عرض الكل ←</span>
   </div>
-</div>
+  <div class="section-sub">اختر من مجموعة واسعة من المنتجات الروسية الأصيلة</div>
 
-<!-- NEWSLETTER -->
+  <!-- Categories -->
 
-<div class="newsletter">
-  <div class="newsletter-inner">
-    <div class="nl-glow"></div>
-    <h2 class="nl-title">اشترك واحصل على خصم 10% 🎁</h2>
-    <p class="nl-sub">كن أول من يعلم بالعروض والمنتجات الجديدة من روسيا</p>
-    <div class="nl-form">
-      <input class="nl-input" type="email" placeholder="بريدك الإلكتروني..."/>
-      <button class="btn-green">اشترك الآن</button>
+  <div class="cats">
+    <button class="cat-btn active" onclick="filterProducts(null,this)">🏠 الكل</button>
+    <button class="cat-btn" onclick="filterProducts('شوكولاتة',this)">🍫 شوكولاتة وحلويات</button>
+    <button class="cat-btn" onclick="filterProducts('شاي',this)">🍵 شاي وقهوة</button>
+    <button class="cat-btn" onclick="filterProducts('غذاء',this)">🍯 غذاء</button>
+    <button class="cat-btn" onclick="filterProducts('تجميل',this)">💄 تجميل</button>
+    <button class="cat-btn" onclick="filterProducts('صحة',this)">💊 صحة</button>
+    <button class="cat-btn" onclick="filterProducts('هدايا',this)">🎁 هدايا</button>
+    <button class="cat-btn" onclick="filterProducts('فراء',this)">🐻 فراء</button>
+    <button class="cat-btn" onclick="filterProducts('سكاكين',this)">🔪 سكاكين</button>
+  </div>
+
+  <div class="products-grid" id="productsGrid">
+    <div class="loading-box">
+      <div class="loading-spinner"></div>
+      <div style="color:var(--muted2);font-size:15px">جاري تحميل المنتجات...</div>
     </div>
   </div>
 </div>
@@ -872,290 +359,221 @@ footer { position: relative; z-index: 5; background: var(--surface); border-top:
 <!-- FOOTER -->
 
 <footer>
-  <div class="footer-main">
-    <div class="footer-brand">
-      <div class="logo">
-        <div class="logo-icon">🇷🇺</div>
-        <div class="logo-text">
-          <div class="logo-name">البيت الروسي</div>
-          <div class="logo-sub">AL-BAIT AL-RUSSI</div>
-        </div>
+  <div class="footer-grid">
+    <div>
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div style="width:42px;height:42px;background:var(--green);border-radius:10px;display:grid;place-items:center;font-size:22px">🇷🇺</div>
+        <div class="footer-brand-name">البيت الروسي</div>
       </div>
-      <p class="footer-desc">نجلب لك أجود وأشهر المنتجات الروسية الأصيلة مباشرة من روسيا إلى بيتك في السعودية والإمارات وجميع الدول العربية.</p>
-      <div class="social-links">
-        <a class="social-link" href="#">📘</a>
-        <a class="social-link" href="#">📸</a>
-        <a class="social-link" href="#">🐦</a>
-        <a class="social-link" href="#">▶️</a>
-        <a class="social-link" href="#">💬</a>
-      </div>
+      <p class="footer-desc">نجلب لك أجود المنتجات الروسية الأصيلة مباشرة من روسيا إلى بيتك في السعودية والإمارات وجميع الدول العربية.</p>
     </div>
     <div>
       <div class="footer-col-title">روابط سريعة</div>
-      <ul class="footer-links-list">
-        <li><a href="#">← الرئيسية</a></li>
-        <li><a href="#">← المنتجات</a></li>
-        <li><a href="#">← العروض</a></li>
-        <li><a href="#">← من نحن</a></li>
-        <li><a href="#">← تواصل معنا</a></li>
-      </ul>
+      <div class="footer-links">
+        <a href="#">← الرئيسية</a>
+        <a href="#">← المنتجات</a>
+        <a href="#">← العروض</a>
+        <a href="#">← من نحن</a>
+        <a href="#">← تواصل معنا</a>
+      </div>
     </div>
     <div>
       <div class="footer-col-title">خدمة العملاء</div>
-      <ul class="footer-links-list">
-        <li><a href="#">← طريقة الطلب</a></li>
-        <li><a href="#">← الشحن والتوصيل</a></li>
-        <li><a href="#">← الإرجاع والاستبدال</a></li>
-        <li><a href="#">← الأسئلة الشائعة</a></li>
-        <li><a href="#">← تتبع طلبك</a></li>
-      </ul>
+      <div class="footer-links">
+        <a href="#">← طريقة الطلب</a>
+        <a href="#">← الشحن والتوصيل</a>
+        <a href="#">← الإرجاع والاستبدال</a>
+        <a href="#">← الأسئلة الشائعة</a>
+        <a href="#">← تتبع طلبك</a>
+      </div>
     </div>
     <div>
       <div class="footer-col-title">تواصل معنا</div>
-      <ul class="footer-links-list">
-        <li><a href="#">📞 +966 50 000 0000</a></li>
-        <li><a href="#">✉️ <span class="__cf_email__" data-cfemail="ff96919990bf9e939d9e968b8d8a8c8c96d19c9092">[email&#160;protected]</span></a></li>
-        <li><a href="#">💬 واتساب متاح 24/7</a></li>
-        <li><a href="#">🕐 السبت - الخميس 9ص - 11م</a></li>
-      </ul>
+      <div class="footer-contact-item">📞 +7 996 219 64 87</div>
+      <div class="footer-contact-item">✉️ info@albaitrussi.com</div>
+      <div class="footer-contact-item">💬 واتساب متاح 24/7</div>
+      <div class="footer-contact-item">🕐 السبت - الخميس 9ص - 11م</div>
     </div>
   </div>
-  <div class="footer-bottom">
-    <div class="footer-copy">© 2025 البيت الروسي — جميع الحقوق محفوظة</div>
-    <div class="payment-icons">
-      <div class="pay-icon">مدى</div>
-      <div class="pay-icon">Visa</div>
-      <div class="pay-icon">Mastercard</div>
-      <div class="pay-icon">🍎 Pay</div>
-      <div class="pay-icon">STC Pay</div>
-    </div>
-  </div>
+  <div class="footer-bottom">جميع الحقوق محفوظة © 2025 البيت الروسي</div>
 </footer>
-
-<!-- CART SIDEBAR -->
-
-<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
-<div class="cart-sidebar" id="cartSidebar">
-  <div class="cart-header">
-    <div class="cart-title">🛒 سلة التسوق</div>
-    <button class="cart-close" onclick="toggleCart()">✕</button>
-  </div>
-  <div class="cart-body" id="cartBody"></div>
-  <div class="cart-footer">
-    <div class="cart-total-row">
-      <span class="cart-total-lbl">الإجمالي</span>
-      <span class="cart-total-val" id="cartTotal">ريال 0</span>
-    </div>
-    <button class="checkout-btn" onclick="window.location.href='checkout.html'">إتمام الطلب ←</button>
-  </div>
-</div>
 
 <!-- TOAST -->
 
-<div class="toast" id="toast">✅ <span id="toastMsg">تمت الإضافة للسلة</span></div>
+<div class="toast" id="toast"></div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
+// ══ Config ══
+const SUPABASE_URL = 'https://scfynykgltftvredmvla.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjZnlueWtnbHRmdHZyZWRtdmxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE2MjIyNzAsImV4cCI6MjA4NzE5ODI3MH0.swEBhsm6s2bkoigELl16ia4TkY0vpMLuFn-QjShlzt0';
 
-// ══════════════════════════════════════
-//  Supabase Config
-// ══════════════════════════════════════
-const SUPABASE_URL = ‘https://scfynykgltftvredmvla.supabase.co’;
-const SUPABASE_ANON_KEY = ‘eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjZnlueWtnbHRmdHZyZWRtdmxhIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE2MjIyNzAsImV4cCI6MjA4NzE5ODI3MH0.swEBhsm6s2bkoigELl16ia4TkY0vpMLuFn-QjShlzt0’;
-
-async function supabaseQuery(table, filter = ‘’) {
-const res = await fetch(`${SUPABASE_URL}/rest/v1/${table}${filter}`, {
-headers: {
-‘apikey’: SUPABASE_ANON_KEY,
-‘Authorization’: `Bearer ${SUPABASE_ANON_KEY}`
-}
-});
-return res.json();
-}
-
-// ══════════════════════════════════════
-//  Products
-// ══════════════════════════════════════
+// ══ Cart ══
+let cart = JSON.parse(localStorage.getItem('cart') || '[]');
 let allProducts = [];
-let currentCategory = null;
 
-async function loadProducts() {
-// عرض skeleton أثناء التحميل
-const grid = document.getElementById(‘productsGrid’);
-grid.innerHTML = Array(6).fill(`<div class="product-card" style="min-height:280px"><div class="product-img skeleton"></div><div class="product-info"><div class="skeleton" style="height:12px;margin-bottom:8px;border-radius:4px"></div><div class="skeleton" style="height:16px;margin-bottom:8px;border-radius:4px"></div><div class="skeleton" style="height:12px;width:60%;border-radius:4px"></div></div></div>`).join(’’);
+function saveCart() { localStorage.setItem('cart', JSON.stringify(cart)); }
 
-try {
-const controller = new AbortController();
-const timeout = setTimeout(() => controller.abort(), 8000);
-const res = await fetch(SUPABASE_URL + ‘/rest/v1/products?order=created_at.desc&is_active=eq.true’, {
-headers: { ‘apikey’: SUPABASE_ANON_KEY, ‘Authorization’: ’Bearer ’ + SUPABASE_ANON_KEY },
-signal: controller.signal
-});
-clearTimeout(timeout);
-const data = await res.json();
-allProducts = data || [];
-document.getElementById(‘productsCount’).textContent = ‘+’ + allProducts.length;
-renderProducts(allProducts);
-} catch(e) {
-document.getElementById(‘productsGrid’).innerHTML = ` <div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted2)"> <div style="font-size:48px;margin-bottom:16px">⚠️</div> <div>تعذر تحميل المنتجات، حاول مرة أخرى</div> <button onclick="loadProducts()" style="margin-top:16px;background:var(--green);color:#080b08;border:none;border-radius:10px;padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:Cairo,sans-serif">إعادة المحاولة</button> </div>`;
-}
-}
+function getCartTotal() { return cart.reduce((s,i) => s + i.price * i.qty, 0); }
 
-function getBadgeClass(badge) {
-if (!badge) return ‘’;
-if (badge.includes(‘جديد’)) return ‘badge-new’;
-if (badge.includes(‘خصم’) || badge.includes(‘مبيعاً’)) return ‘badge-sale’;
-return ‘badge-hot’;
-}
-
-function renderProducts(products) {
-const grid = document.getElementById(‘productsGrid’);
-if (!products.length) {
-grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:60px;color:var(--muted2)"> <div style="font-size:48px;margin-bottom:16px">🔍</div> <div>لا توجد منتجات في هذه الفئة</div> </div>`;
-return;
-}
-grid.innerHTML = products.map(p => `<div class="product-card" onclick="addToCart('${p.name}', ${p.price}, '${p.emoji || '📦'}')"> <div class="product-img" style="${p.category === 'فراء' ? 'background:#1a0e05' : p.category === 'سكاكين' ? 'background:#0a0a10' : ''}"> ${p.emoji || '📦'} ${p.badge ?`<div class="prod-badge ${getBadgeClass(p.badge)}">${p.badge}</div>`: ''} <button class="wishlist-btn" onclick="event.stopPropagation()">🤍</button> </div> <div class="product-info"> <div class="product-cat">${p.category || ''}</div> <div class="product-name">${p.name}</div> <div class="product-origin">🇷🇺 ${p.origin || 'روسيا'}${p.brand ? ' · ' + p.brand : ''}</div> <div class="product-stars"> <span class="stars-val">★★★★★</span> <span class="stars-count">(${Math.floor(Math.random()*300)+50})</span> </div> <div class="product-price-row"> <div> <div class="product-price"><span class="price-currency">ريال </span>${p.price}</div> ${p.old_price ?`<div class="price-old">ريال ${p.old_price}</div>`: ''} </div> <button class="add-btn" onclick="event.stopPropagation();addToCart('${p.name}', ${p.price}, '${p.emoji || '📦'}')">+</button> </div> </div> </div>`).join(’’);
-
-// Scroll reveal
-document.querySelectorAll(’.product-card’).forEach(el => {
-el.style.opacity = ‘0’;
-el.style.transform = ‘translateY(24px)’;
-el.style.transition = ‘opacity 0.5s ease, transform 0.5s ease, border-color 0.3s, box-shadow 0.3s’;
-observer.observe(el);
-});
-}
-
-function filterByCategory(cat, el) {
-currentCategory = cat;
-document.querySelectorAll(’.cat-link’).forEach(a => a.classList.remove(‘active’));
-if (el) el.classList.add(‘active’);
-document.getElementById(‘sectionTitle’).textContent = cat ? cat + ’ روسي’ : ‘جميع المنتجات’;
-const filtered = cat ? allProducts.filter(p => p.category === cat) : allProducts;
-renderProducts(filtered);
-document.getElementById(‘products-section’).scrollIntoView({behavior:‘smooth’});
-}
-
-function filterProducts(query) {
-const filtered = allProducts.filter(p =>
-p.name.includes(query) || (p.category && p.category.includes(query)) || (p.description && p.description.includes(query))
-);
-renderProducts(filtered);
-}
-
-// ══════════════════════════════════════
-//  Cart
-// ══════════════════════════════════════
-function getCart() { return JSON.parse(localStorage.getItem(‘cart’) || ‘[]’); }
-function saveCart(cart) { localStorage.setItem(‘cart’, JSON.stringify(cart)); }
-
-function syncCartCount() {
-const cart = getCart();
-const count = cart.reduce((s, i) => s + i.qty, 0);
-document.getElementById(‘cartCount’).textContent = count;
+function updateCartCount() {
+  const total = cart.reduce((s,i) => s + i.qty, 0);
+  document.getElementById('cartCount').textContent = total;
 }
 
 function addToCart(name, price, emoji) {
-let cart = getCart();
-const existing = cart.find(i => i.name === name);
-if (existing) existing.qty++;
-else cart.push({ id: Date.now(), name, price: parseFloat(price), qty: 1, emoji: emoji || ‘📦’ });
-saveCart(cart);
-syncCartCount();
-renderCartSidebar();
-showToast(`تمت إضافة "${name}" للسلة`);
+  const existing = cart.find(i => i.name === name);
+  if (existing) existing.qty++;
+  else cart.push({ name, price: parseFloat(price), emoji: emoji || '📦', qty: 1 });
+  saveCart();
+  updateCartCount();
+  renderCart();
+  showToast('تمت إضافة "' + name + '" للسلة ✅');
 }
 
-function changeQtyCart(name, delta) {
-let cart = getCart();
-const item = cart.find(i => i.name === name);
-if (item) {
-item.qty += delta;
-if (item.qty <= 0) cart = cart.filter(i => i.name !== name);
-}
-saveCart(cart);
-syncCartCount();
-renderCartSidebar();
+function changeQty(name, delta) {
+  const item = cart.find(i => i.name === name);
+  if (!item) return;
+  item.qty += delta;
+  if (item.qty <= 0) cart = cart.filter(i => i.name !== name);
+  saveCart();
+  updateCartCount();
+  renderCart();
 }
 
-function renderCartSidebar() {
-const cart = getCart();
-const body = document.getElementById(‘cartBody’);
-if (!cart.length) {
-body.innerHTML = ‘<div style="text-align:center;padding:40px;color:#6b6e50"><div style="font-size:48px;margin-bottom:12px">🛒</div><div>السلة فارغة</div></div>’;
-document.getElementById(‘cartTotal’).textContent = ‘ريال 0’;
-return;
-}
-body.innerHTML = cart.map(item => ` <div class="cart-item"> <div class="cart-item-img">${item.emoji}</div> <div style="flex:1"> <div class="cart-item-name">${item.name}</div> <div class="cart-item-price">ريال ${(item.price * item.qty).toFixed(0)}</div> <div class="cart-qty"> <button class="qty-btn" onclick="changeQtyCart('${item.name}', -1)">−</button> <span class="qty-num">${item.qty}</span> <button class="qty-btn" onclick="changeQtyCart('${item.name}', 1)">+</button> </div> </div> </div>`).join(’’);
-const total = cart.reduce((s, i) => s + i.price * i.qty, 0);
-document.getElementById(‘cartTotal’).textContent = ’ريال ’ + total.toFixed(0);
+function renderCart() {
+  const el = document.getElementById('cartItems');
+  const footer = document.getElementById('cartFooter');
+  if (!cart.length) {
+    el.innerHTML = '<div class="cart-empty"><div style="font-size:56px;margin-bottom:12px">🛒</div><div>السلة فارغة</div></div>';
+    footer.style.display = 'none';
+    return;
+  }
+  footer.style.display = 'block';
+  el.innerHTML = cart.map(item => `
+    <div class="cart-item">
+      <div class="cart-item-img">${item.emoji}</div>
+      <div style="flex:1">
+        <div class="cart-item-name">${item.name}</div>
+        <div class="cart-qty">
+          <button class="qty-btn" onclick="changeQty('${item.name}',-1)">−</button>
+          <span class="qty-num">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty('${item.name}',1)">+</button>
+        </div>
+      </div>
+      <div class="cart-item-price">ريال ${(item.price * item.qty).toFixed(0)}</div>
+    </div>`).join('');
+  document.getElementById('cartTotal').textContent = getCartTotal().toFixed(0) + ' ريال';
 }
 
 function toggleCart() {
-document.getElementById(‘cartSidebar’).classList.toggle(‘open’);
-document.getElementById(‘cartOverlay’).classList.toggle(‘open’);
+  document.getElementById('cartOverlay').classList.toggle('open');
+  renderCart();
 }
 
+function closeCart(e) {
+  if (e.target === document.getElementById('cartOverlay')) toggleCart();
+}
+
+// ══ Products ══
+async function loadProducts() {
+  try {
+    const res = await fetch(SUPABASE_URL + '/rest/v1/products?order=created_at.desc', {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY
+      }
+    });
+    const data = await res.json();
+    if (!Array.isArray(data)) throw new Error('bad response');
+    allProducts = data;
+    document.getElementById('productsCount').textContent = data.length + '+';
+    renderProducts(allProducts);
+  } catch(e) {
+    document.getElementById('productsGrid').innerHTML = `
+      <div class="loading-box">
+        <div style="font-size:48px;margin-bottom:16px">⚠️</div>
+        <div style="color:var(--muted2)">تعذر تحميل المنتجات</div>
+        <button onclick="loadProducts()" style="margin-top:16px;background:var(--green);color:#080b08;border:none;border-radius:10px;padding:12px 24px;font-size:14px;font-weight:700;cursor:pointer;font-family:Cairo,sans-serif">إعادة المحاولة</button>
+      </div>`;
+  }
+}
+
+function renderProducts(products) {
+  const grid = document.getElementById('productsGrid');
+  if (!products.length) {
+    grid.innerHTML = '<div class="loading-box"><div style="font-size:48px;margin-bottom:12px">📦</div><div style="color:var(--muted2)">لا توجد منتجات في هذه الفئة</div></div>';
+    return;
+  }
+  grid.innerHTML = products.map(p => `
+    <div class="product-card">
+      <div class="product-img">
+        ${p.image_url && !p.image_url.startsWith('data:')
+          ? `<img src="${p.image_url}" alt="${p.name}" loading="lazy"/>`
+          : `<span style="font-size:64px">${p.emoji || '📦'}</span>`}
+        ${p.badge ? `<div class="product-badge">${p.badge}</div>` : ''}
+      </div>
+      <div class="product-info">
+        <div class="product-origin">🇷🇺 ${p.origin || 'روسيا'}</div>
+        <div class="product-name">${p.name}</div>
+        <div class="product-price-row">
+          <span class="product-price">ريال ${p.price}</span>
+          ${p.old_price ? `<span class="product-old-price">ريال ${p.old_price}</span>` : ''}
+        </div>
+        <button class="btn-add" onclick="addToCart('${p.name.replace(/'/g,"\\'")}', ${p.price}, '${p.emoji || '📦'}')">
+          🛒 أضف للسلة
+        </button>
+      </div>
+    </div>`).join('');
+}
+
+function filterProducts(category, btn) {
+  document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  else document.querySelector('.cat-btn').classList.add('active');
+  const filtered = category ? allProducts.filter(p => p.category === category) : allProducts;
+  renderProducts(filtered);
+}
+
+// ══ Toast ══
 function showToast(msg) {
-document.getElementById(‘toastMsg’).textContent = msg;
-const toast = document.getElementById(‘toast’);
-toast.classList.add(‘show’);
-setTimeout(() => toast.classList.remove(‘show’), 3000);
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
 }
 
-// ══════════════════════════════════════
-//  Scroll Reveal
-// ══════════════════════════════════════
-const observer = new IntersectionObserver(entries => {
-entries.forEach(e => {
-if (e.isIntersecting) {
-e.target.style.opacity = ‘1’;
-e.target.style.transform = ‘translateY(0)’;
-}
-});
-}, { threshold: 0.08 });
-
-document.querySelectorAll(’.cat-card, .testi-card, .hero-side-card, .feat-item’).forEach(el => {
-el.style.opacity = ‘0’;
-el.style.transform = ‘translateY(24px)’;
-el.style.transition = ‘opacity 0.5s ease, transform 0.5s ease’;
-observer.observe(el);
-});
-
-// Admin shortcut
-document.addEventListener(‘keydown’, e => {
-if (e.ctrlKey && e.shiftKey && e.key === ‘A’) window.open(‘admin.html’, ‘_blank’);
-});
-
-// ══════════════════════════════════════
-//  Auth
-// ══════════════════════════════════════
+// ══ Auth ══
 function handleAuth() {
-const session = localStorage.getItem(‘sb_session’);
-if (session) {
-const user = JSON.parse(session).user;
-const name = user?.user_metadata?.full_name || user?.email?.split(’@’)[0];
-if (confirm(’اهلا ’ + name + ‘! هل تريد تسجيل الخروج؟’)) {
-localStorage.removeItem(‘sb_session’);
-location.reload();
-}
-} else {
-window.location.href = ‘auth.html’;
-}
+  const session = localStorage.getItem('sb_session');
+  if (session) {
+    try {
+      const user = JSON.parse(session).user;
+      const name = user?.user_metadata?.full_name || user?.email?.split('@')[0];
+      if (confirm('أهلاً ' + name + '!\nهل تريد تسجيل الخروج؟')) {
+        localStorage.removeItem('sb_session');
+        location.reload();
+      }
+    } catch(e) { window.location.href = 'auth.html'; }
+  } else {
+    window.location.href = 'auth.html';
+  }
 }
 
+// تحديث زر الدخول
 (function(){
-const session = localStorage.getItem(‘sb_session’);
-const btn = document.getElementById(‘authBtn’);
-if (session && btn) {
-try {
-const user = JSON.parse(session).user;
-const name = user?.user_metadata?.full_name || user?.email?.split(’@’)[0];
-btn.textContent = ’اهلا ’ + name;
-} catch(e) {}
-}
+  const session = localStorage.getItem('sb_session');
+  const btn = document.getElementById('authBtn');
+  if (session && btn) {
+    try {
+      const user = JSON.parse(session).user;
+      const name = user?.user_metadata?.full_name || user?.email?.split('@')[0];
+      btn.textContent = '👤 ' + name;
+    } catch(e) {}
+  }
 })();
 
-syncCartCount();
-renderCartSidebar();
+// ══ Init ══
+updateCartCount();
 loadProducts();
 </script>
 
